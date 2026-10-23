@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Penny Appeal Caribbean</title>
+<meta name="description" content="Penny Appeal Caribbean is a Muslim charity working across the region: clean water, food, child sponsorship and emergency response. Zakat kept restricted.">
+<meta name="theme-color" content="#231f20">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,600&display=swap">
+<style>
+/* Ascension build · concept: "every gift travels" · Penny Appeal Caribbean */
+:root{
+  --orange:#ef7c00; --orange-deep:#c96500; --ink:#231f20; --ink-2:#55504f; --paper:#fffaf3; --sky:#dfeef5; --green:#025749;
+  --thirst:#00a5ce; --thirst-deep:#006f8a; --feed:#f05b89; --feed-deep:#b03d62; --orphan:#ef7c00; --orphan-deep:#b85f00; --emergency:#d6343f; --emergency-deep:#9d1f29; --zakat:#025749;
+  --sans:"Outfit","Helvetica Neue",Arial,sans-serif; --serif:"Fraunces",Georgia,serif;
+  --ease:cubic-bezier(.16,1,.3,1); --r:18px;
+  --gl:max(18px, env(safe-area-inset-left, 0px)); --gr:max(18px, env(safe-area-inset-right, 0px));
+  --pad:clamp(18px, 4.4vw, 72px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+html,body{margin:0;overflow-x:clip}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-60px;z-index:200;background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;transition:top .3s}
+.skip:focus{top:12px}
+.container{padding-left:calc(var(--gl) + var(--pad) - 18px);padding-right:calc(var(--gr) + var(--pad) - 18px)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.h2{font-size:clamp(34px,min(4.4vw,8vh),64px);font-weight:700;line-height:1.02;letter-spacing:-.025em;margin:0}
+.h2 em,.accent{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.lead{font-size:clamp(16px,1.25vw,19px);line-height:1.55;color:var(--ink-2);max-width:52ch}
+/* line-mask reveal (filled by JS) */
+.reveal-line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.reveal-line>span{display:block}
+
+/* ---------- buttons: dot-to-arrow ---------- */
+.btn{--bg:var(--orange);--fg:#fff;--dot:#fff;position:relative;display:inline-flex;align-items:center;gap:0;height:54px;padding:0 54px 0 26px;border-radius:999px;background:var(--bg);color:var(--fg);font-weight:700;font-size:13.5px;letter-spacing:.12em;text-transform:uppercase;overflow:hidden;isolation:isolate;white-space:nowrap;transition:transform .5s var(--ease),background .3s,color .3s,box-shadow .5s var(--ease)}
+.btn .d{position:absolute;right:26px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--dot);transition:transform .35s var(--ease)}
+.btn::after{content:"";position:absolute;left:var(--gx,50%);top:var(--gy,50%);width:180%;aspect-ratio:1;border-radius:50%;background:radial-gradient(rgba(255,255,255,.45),transparent 60%);transform:translate(-50%,-50%);opacity:0;transition:opacity .4s;z-index:-1}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(239,124,0,.7)}
+.btn:hover::after{opacity:.6}
+.btn:hover .d:nth-child(1){transform:translateY(-6px)}
+.btn:hover .d:nth-child(2){transform:translateY(6px)}
+.btn:hover .d:nth-child(3){transform:translateX(10px);transition-delay:.18s}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn--ghost{--bg:transparent;--fg:#fff;--dot:var(--orange);box-shadow:inset 0 0 0 2px rgba(255,255,255,.85)}
+.btn--ghost:hover{--bg:#fff;--fg:var(--ink);box-shadow:inset 0 0 0 2px #fff}
+.btn--ink{--bg:var(--ink);--fg:#fff;--dot:var(--orange)}
+.btn--white{--bg:#fff;--fg:var(--ink);--dot:var(--orange)}
+.btn--sm{height:44px;padding:0 44px 0 20px;font-size:12px}
+.btn--sm .d{right:20px}
+.link-arrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.link-arrow svg{width:16px;height:16px;transition:transform .5s var(--ease)}
+.link-arrow:hover svg{transform:translateX(5px)}
+
+/* ---------- header ---------- */
+.header{position:fixed;z-index:50;left:0;right:0;top:0;height:84px;display:flex;align-items:center;gap:28px;padding:calc(env(safe-area-inset-top,0px)) calc(var(--gr) + var(--pad) - 18px) 0 calc(var(--gl) + var(--pad) - 18px);color:#fff;transition:transform .7s var(--ease),background .5s,color .5s,height .5s var(--ease),box-shadow .5s}
+.header.is-solid{background:rgba(255,250,243,.94);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);color:var(--ink);height:72px;box-shadow:0 1px 0 rgba(35,31,32,.08)}
+.header.is-hidden{transform:translateY(-105%)}
+.logo{display:flex;align-items:stretch;font-weight:700;font-size:17px;letter-spacing:-.01em;line-height:1}
+.logo span{padding:7px 9px 8px;border:2px solid currentColor}
+.logo span+span{background:var(--orange);border-color:var(--orange);color:#fff}
+.header.is-solid .logo span:first-child{color:var(--orange);border-color:transparent;padding-left:0}
+.nav{display:flex;gap:30px;margin-left:auto;font-weight:600;font-size:15px}
+.nav a{position:relative;padding:6px 0}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.menu-btn{display:none;width:46px;height:46px;border-radius:50%;border:2px solid currentColor;place-items:center}
+.menu-btn i{display:block;width:18px;height:2px;background:currentColor;box-shadow:0 -6px 0 currentColor,0 6px 0 currentColor;transition:.4s var(--ease)}
+.menu-open .menu-btn i{box-shadow:none;transform:rotate(45deg)}
+.menu-open .menu-btn i::after{content:"";display:block;width:18px;height:2px;background:currentColor;transform:rotate(-90deg)}
+.mobile-nav{position:fixed;inset:0;z-index:45;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:100px calc(var(--gl) + 10px) 40px;clip-path:circle(0% at calc(100% - 40px) 40px);transition:clip-path .8s var(--ease);visibility:hidden}
+.menu-open .mobile-nav{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible}
+.mobile-nav a{font-size:clamp(34px,10vw,52px);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.mobile-nav a:hover{color:var(--orange)}
+.menu-open .header{color:#fff;background:transparent;box-shadow:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;background:var(--ink);color:#fff;overflow:hidden;isolation:isolate}
+.slide{position:absolute;inset:0;clip-path:inset(0 0 0 100%);z-index:1}
+.slide.is-current{clip-path:inset(0 0 0 0);z-index:2}
+.slide.is-entering{z-index:3}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);transform-origin:60% 40%}
+.slide.is-current img{animation:kb 9s linear forwards}
+@keyframes kb{to{transform:scale(1.02)}}
+.hero__shade{position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(90deg,rgba(20,16,17,.72) 0%,rgba(20,16,17,.35) 45%,rgba(20,16,17,0) 70%),linear-gradient(0deg,rgba(20,16,17,.65) 0%,rgba(20,16,17,0) 45%),linear-gradient(180deg,rgba(20,16,17,.45),rgba(20,16,17,0) 22%)}
+.hero__copy{position:absolute;z-index:5;left:calc(var(--gl) + var(--pad) - 18px);bottom:clamp(110px,17vh,170px);max-width:min(640px,52vw)}
+.hero__eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px}
+.hero__eyebrow i{width:26px;height:2px;background:var(--orange)}
+.hero h1{margin:0 0 18px;font-size:clamp(46px,min(6.4vw,11.5vh),104px);font-weight:800;line-height:.92;letter-spacing:-.035em;text-transform:uppercase}
+.hero h1 .box{display:inline-block;background:var(--orange);color:var(--ink);padding:.02em .14em .06em;margin-left:-.04em}
+.hero__sub{font-size:clamp(17px,1.4vw,21px);line-height:1.4;margin:0 0 28px;max-width:30ch;color:rgba(255,255,255,.88)}
+.hero__ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero__ctrl{position:absolute;z-index:6;left:calc(var(--gl) + var(--pad) - 18px);bottom:34px;display:flex;align-items:center;gap:12px}
+.round{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(255,255,255,.7);display:grid;place-items:center;color:#fff;transition:background .3s,color .3s,transform .5s var(--ease)}
+.round:hover{background:#fff;color:var(--ink);transform:scale(1.06)}
+.round svg{width:18px;height:18px}
+.next-peek{display:flex;align-items:center;gap:12px;margin-left:8px;text-align:left;color:#fff}
+.next-peek__thumb{width:62px;height:42px;border-radius:8px;overflow:hidden;position:relative}
+.next-peek__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.next-peek:hover .next-peek__thumb img{transform:scale(1.12)}
+.next-peek small{display:block;font-size:10.5px;letter-spacing:.18em;opacity:.7;font-weight:700}
+.next-peek b{font-weight:600;font-size:15px}
+.dots{display:flex;gap:6px;margin-left:18px}
+.dots button{width:34px;height:3px;border-radius:3px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
+.dots button span{position:absolute;inset:0;background:var(--orange);transform:scaleX(0);transform-origin:left}
+.dots button.is-done span{transform:scaleX(1)}
+
+/* ---------- gift card (one form, two homes: hero dock + drawer) ---------- */
+.gift-dock{position:absolute;z-index:6;right:calc(var(--gr) + var(--pad) - 18px);bottom:clamp(90px,13vh,130px);width:min(390px,32vw)}
+.gift{background:#fff;color:var(--ink);border-radius:var(--r);padding:22px 22px 20px;box-shadow:0 40px 80px -40px rgba(0,0,0,.55)}
+.gift__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.gift__head h2{margin:0;font-size:21px;font-weight:700;letter-spacing:-.01em}
+.gift__head .chip{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--green);background:#e3f1ec;border-radius:999px;padding:5px 10px}
+.field{display:grid;gap:6px;margin-bottom:12px}
+.field>span,.field legend{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.select{position:relative}
+.select select{appearance:none;-webkit-appearance:none;width:100%;height:46px;border:1.5px solid #e6e1da;border-radius:10px;padding:0 38px 0 14px;background:#fff;font-weight:500;font-size:15px;cursor:pointer;transition:border-color .3s}
+.select select:hover,.select select:focus{border-color:var(--ink)}
+.select::after{content:"";position:absolute;right:15px;top:50%;width:7px;height:7px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:#f3efe9;border-radius:12px;position:relative}
+.seg button{height:38px;border-radius:9px;font-weight:600;font-size:14px;position:relative;z-index:1;transition:color .3s}
+.seg button[aria-pressed="true"]{color:#fff}
+.seg__pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 6px);border-radius:9px;background:var(--ink);transition:transform .5s var(--ease)}
+.seg[data-v="monthly"] .seg__pill{transform:translateX(calc(100% + 4px))}
+fieldset{border:0;margin:0 0 12px;padding:0;min-width:0}
+.amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.amounts button{height:46px;border-radius:10px;border:1.5px solid #e6e1da;font-weight:700;font-size:14.5px;transition:background .3s,color .3s,border-color .3s,transform .4s var(--ease)}
+.amounts button:hover{border-color:var(--ink)}
+.amounts button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;transform:translateY(-2px)}
+.custom{position:relative;margin-top:8px}
+.custom input{width:100%;height:46px;border:1.5px solid #e6e1da;border-radius:10px;padding:0 14px 0 56px;font-size:15px;font-weight:500;transition:border-color .3s}
+.custom input:focus{border-color:var(--ink);outline:none}
+.custom b{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink-2);font-weight:700}
+.gift .btn{width:100%;justify-content:center;padding:0 40px;margin-top:6px}
+.gift__note{margin:10px 0 0;font-size:12.5px;color:var(--ink-2);min-height:1.2em;text-align:center}
+.gift__note strong{color:var(--ink)}
+.drawer{position:fixed;inset:0;z-index:80;display:grid;justify-items:end;align-items:stretch;pointer-events:none;visibility:hidden}
+.drawer__shade{position:absolute;inset:0;background:rgba(20,16,17,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity .5s}
+.drawer__panel{position:relative;width:min(440px,100%);height:100%;background:var(--paper);padding:84px 22px 24px;overflow:auto;transform:translateX(102%);transition:transform .7s var(--ease);overscroll-behavior:contain}
+.drawer__panel .gift{box-shadow:none;border:1px solid #eee5da}
+.drawer__close{position:absolute;right:20px;top:20px;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:22px;line-height:1}
+.drawer.is-open{pointer-events:auto;visibility:visible}
+.drawer.is-open .drawer__shade{opacity:1}
+.drawer.is-open .drawer__panel{transform:none}
+.drawer__trust{margin:18px 4px 0;font-size:13px;color:var(--ink-2);display:grid;gap:8px}
+.drawer__trust li{display:flex;gap:10px;align-items:flex-start}
+.drawer__trust svg{flex:none;width:18px;height:18px;color:var(--green);margin-top:2px}
+
+/* ---------- about ---------- */
+.about{position:relative;padding-top:clamp(90px,14vh,150px);padding-bottom:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(30px,5vw,90px);align-items:center}
+.about .h2{font-size:clamp(46px,min(6vw,11vh),96px);letter-spacing:-.04em}
+.about .h2 .accent{color:var(--orange)}
+.about p.words{font-size:clamp(18px,1.55vw,23px);line-height:1.45;color:var(--ink);margin:26px 0 30px;max-width:40ch}
+.words .w{opacity:.16;transition:opacity .2s}
+.stack{position:relative;height:min(64vh,560px)}
+.stack figure{position:absolute;margin:0;width:56%;padding:10px 10px 44px;background:#fff;border-radius:6px;box-shadow:0 30px 60px -30px rgba(35,31,32,.45);will-change:transform}
+.stack img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
+.stack figcaption{position:absolute;left:14px;bottom:12px;font-family:var(--serif);font-style:italic;font-size:17px}
+
+/* ---------- drifting tickers (shared) ---------- */
+.ticker{overflow:hidden;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.ticker.is-drag{cursor:grabbing}
+.ticker__track{display:flex;gap:14px;width:max-content;will-change:transform}
+.prog{flex:none;display:flex;align-items:center;gap:14px;padding:14px 22px 14px 14px;border-radius:14px;background:#fff;box-shadow:0 1px 0 rgba(35,31,32,.06),0 14px 30px -24px rgba(35,31,32,.5)}
+.prog i{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-style:normal;font-weight:800;font-size:15px;flex:none}
+.prog b{display:block;font-size:15.5px;font-weight:700}
+.prog span{font-size:14px;color:var(--ink-2)}
+.prog-ticker{padding:36px 0 clamp(70px,10vh,110px)}
+
+/* ---------- causes ---------- */
+.causes{position:relative;background:var(--sky);padding-top:clamp(80px,12vh,130px);padding-bottom:clamp(80px,12vh,130px);overflow:hidden}
+.causes__map{position:absolute;right:-3%;top:20px;width:min(560px,46vw);opacity:.95;pointer-events:none}
+.causes__head{position:relative;max-width:640px;margin-bottom:44px}
+.causes__head .lead{margin-top:18px}
+.cards{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px)}
+.cause{--c:var(--orange);--cd:var(--orange-deep);position:relative;aspect-ratio:4/3.3;border-radius:var(--r);overflow:hidden;color:#fff;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;transform:translateZ(0)}
+.cause img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease),filter 1.2s var(--ease)}
+.cause::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(200deg,transparent 15%,var(--c) 75%);opacity:.82;transition:opacity .6s var(--ease)}
+.cause:hover img,.cause:focus-within img{transform:scale(1.07)}
+.cause:hover::before,.cause:focus-within::before{opacity:1}
+.cause h3{margin:0;font-size:clamp(24px,2vw,30px);font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.cause__more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease)}
+.cause__more>div{overflow:hidden}
+.cause__more p{margin:8px 0 0;font-size:15px;line-height:1.4;opacity:.95}
+.cause:hover .cause__more,.cause:focus-within .cause__more{grid-template-rows:1fr}
+.cause__foot{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.5);font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.cause__foot svg{width:18px;height:18px}
+.cause__foot .arr{margin-left:auto;transition:transform .5s var(--ease)}
+.cause:hover .cause__foot .arr{transform:translateX(5px)}
+.cause>a.cover{position:absolute;inset:0;z-index:2}
+
+/* ---------- curved velocity marquee ---------- */
+.route{position:relative;background:var(--sky);margin-top:-1px;padding-bottom:20px}
+.route svg{display:block;width:100%;height:clamp(140px,16vw,240px);overflow:visible}
+.route text{font-family:var(--sans);font-weight:700;font-size:44px;fill:var(--thirst-deep);letter-spacing:.01em}
+.route .band{fill:none;stroke:#fff;stroke-width:78;stroke-linecap:round}
+.route__pause{position:absolute;right:calc(var(--gr) + var(--pad) - 18px);bottom:12px;width:40px;height:40px;border-radius:50%;background:#fff;color:var(--thirst-deep);display:grid;place-items:center;box-shadow:0 8px 20px -10px rgba(0,0,0,.35)}
+.route__pause svg{width:14px;height:14px}
+
+/* ---------- impact ---------- */
+.impact{background:var(--sky);padding-top:clamp(60px,9vh,100px);padding-bottom:clamp(80px,12vh,130px)}
+.impact__grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(30px,4vw,70px);align-items:center}
+.impact .lead{margin:20px 0 26px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips button{--c:var(--thirst);height:42px;padding:0 18px;border-radius:999px;border:1.5px solid rgba(35,31,32,.25);font-weight:600;font-size:14.5px;background:#fff;transition:background .35s,color .35s,border-color .35s,transform .5s var(--ease)}
+.chips button:hover{border-color:var(--c)}
+.chips button[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff;transform:translateY(-2px)}
+.worldmap{position:relative}
+.worldmap__img{width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(0,60,80,.12))}
+.pin{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--c,var(--orange));border:2.5px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.25);transition:transform .5s var(--ease),opacity .5s}
+.pin::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--c,var(--orange));opacity:0}
+.worldmap:not(.is-in) .pin{transform:scale(0)!important}
+.pin{transition:transform .7s cubic-bezier(.34,1.56,.64,1),opacity .5s}
+.pin.is-on{transform:scale(1.35)}
+.pin.is-on::after{animation:ring 1.8s var(--ease) infinite}
+.pin.is-off{opacity:.35;transform:scale(.8)}
+@keyframes ring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+.place{position:absolute;right:2%;bottom:-30%;width:min(360px,70%);background:#fff;border-radius:16px;box-shadow:0 30px 60px -30px rgba(0,50,70,.45);overflow:hidden;transition:height .5s var(--ease)}
+.place__in{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;padding:14px}
+.place__img{border-radius:10px;overflow:hidden;aspect-ratio:1;position:relative}
+.place__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.place small{font-size:12px;font-weight:600;color:var(--ink-2)}
+.place h3{margin:2px 0 6px;font-size:19px;letter-spacing:-.01em}
+.place p{margin:0 0 10px;font-size:13.5px;line-height:1.4;color:var(--ink-2)}
+.place .link-arrow{font-size:11.5px}
+.raised{margin-top:clamp(70px,10vh,110px);padding-top:28px;border-top:1px solid rgba(35,31,32,.15)}
+.raised__head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.raised h3{margin:0;font-size:clamp(26px,2.6vw,40px);font-weight:400;letter-spacing:-.02em}
+.raised h3 strong{font-weight:800;color:var(--orange)}
+.raised h3 small{font-size:.5em;font-weight:700;letter-spacing:.08em;margin-right:4px;vertical-align:.35em}
+.raised__date{font-size:14px;color:var(--ink-2)}
+.totals{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.6vw,26px);margin-top:30px}
+.total{--c:var(--thirst)}
+.total b{display:block;font-size:15px;color:var(--c);font-weight:700}
+.total .amt{font-size:clamp(20px,1.8vw,28px);font-weight:700;letter-spacing:-.02em;margin:4px 0 10px;font-variant-numeric:tabular-nums}
+.total .amt small{font-size:.48em;letter-spacing:.06em;margin-right:4px;vertical-align:.3em;color:var(--ink-2)}
+.bar{height:6px;border-radius:6px;background:rgba(35,31,32,.1);overflow:hidden;margin-bottom:12px}
+.bar i{display:block;height:100%;width:100%;border-radius:6px;background:var(--c);transform:scaleX(0);transform-origin:left}
+.total button{font-weight:700;font-size:13px;letter-spacing:.06em;color:var(--c);display:inline-flex;align-items:center;gap:6px}
+.total button svg{width:14px;height:14px;transition:transform .4s var(--ease)}
+.total button:hover svg{transform:translateX(4px)}
+
+/* ---------- field photographs ---------- */
+.field-photos{background:var(--sky);padding-bottom:clamp(80px,12vh,130px);display:grid;gap:14px}
+.photo{flex:none;position:relative;width:clamp(240px,24vw,380px);aspect-ratio:4/3;border-radius:14px;overflow:hidden}
+.photo:nth-child(3n+2){width:clamp(200px,18vw,290px)}
+.photo img{width:100%;height:100%;object-fit:cover;pointer-events:none;transition:transform 1s var(--ease)}
+.photo:hover img{transform:scale(1.05)}
+.photo span{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.92);color:var(--ink);font-size:12px;font-weight:700;letter-spacing:.06em;padding:5px 10px;border-radius:999px}
+.field-photos .title{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:14px}
+
+/* ---------- take action (coverflow) ---------- */
+.take{padding-top:clamp(80px,12vh,130px);padding-bottom:clamp(80px,12vh,130px);background:var(--paper);overflow:hidden}
+.take__head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end;margin-bottom:46px}
+.take__head .lead{margin-top:14px}
+.take__nav{display:flex;align-items:center;gap:12px}
+.take__nav .round{border-color:rgba(35,31,32,.3);color:var(--ink)}
+.take__nav .round:hover{background:var(--ink);color:#fff}
+.take__count{font-size:14px;font-weight:600;color:var(--ink-2);min-width:150px;text-align:right}
+.flow{position:relative;height:clamp(380px,46vw,470px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.fcard{--c:var(--thirst);--cd:var(--thirst-deep);position:absolute;left:50%;top:0;width:min(820px,72vw);height:100%;margin-left:calc(min(820px,72vw) / -2);border-radius:22px;overflow:hidden;background:#fff;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);box-shadow:0 40px 80px -50px rgba(35,31,32,.6);transition:transform .9s var(--ease),opacity .9s var(--ease),filter .9s var(--ease);will-change:transform}
+.fcard__body{padding:clamp(24px,3vw,44px);display:flex;flex-direction:column;justify-content:center;gap:16px}
+.fcard .eyebrow{color:var(--cd)}
+.fcard h3{margin:0;font-size:clamp(24px,2.3vw,34px);line-height:1.12;letter-spacing:-.02em;font-weight:700}
+.fcard p{margin:0;color:var(--ink-2);font-size:15px}
+.fcard .btn{--bg:var(--c);align-self:flex-start}
+.fcard__img{position:relative}
+.fcard__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fcard:not(.is-active){cursor:pointer}
+.fcard:not(.is-active) .fcard__body>*{pointer-events:none}
+
+/* ---------- zakat ---------- */
+.zakat{background:var(--green);color:#fff;padding-top:clamp(80px,12vh,120px);padding-bottom:clamp(80px,12vh,120px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:center;position:relative;overflow:hidden}
+.zakat .h2 em{color:#9be0c9}
+.zakat p{font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:rgba(255,255,255,.85);margin:20px 0 30px;max-width:40ch}
+.fence{position:relative;padding:44px 34px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;min-height:250px}
+.fence svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.fence rect{fill:none;stroke:#9be0c9;stroke-width:2;stroke-dasharray:10 9}
+.fence .lock{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:#fff;color:var(--green);display:grid;place-items:center;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
+.fence .lock svg{position:static;width:22px;height:22px}
+.fence .pill{position:relative;padding:14px 20px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);font-weight:600;font-size:16px;display:flex;align-items:center;gap:10px}
+.fence .pill i{width:10px;height:10px;border-radius:50%}
+.fence__note{position:absolute;left:50%;bottom:0;transform:translate(-50%,50%);background:var(--green);padding:0 14px;font-size:12px;font-weight:700;letter-spacing:.16em;color:#9be0c9;white-space:nowrap}
+
+/* ---------- important parts ---------- */
+.important{background:var(--ink);color:#fff;padding-top:clamp(90px,13vh,140px);padding-bottom:clamp(60px,9vh,100px)}
+.important .h2{margin-bottom:clamp(60px,9vh,96px)}
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,24px)}
+.part{position:relative;display:grid;grid-template-columns:42% minmax(0,1fr);background:#fff;color:var(--ink);border-radius:var(--r);min-height:190px;transition:translate .7s var(--ease)}
+.part__fig{position:relative}
+.part__fig img{position:absolute;left:4%;bottom:0;width:96%;max-height:150%;object-fit:contain;object-position:bottom;transform-origin:50% 100%;transition:transform .8s var(--ease);filter:drop-shadow(0 16px 20px rgba(0,0,0,.25))}
+.part:hover{translate:0 -6px}
+.part:hover .part__fig img{transform:scale(1.1) translateY(-4%)}
+.part__body{padding:22px 20px 22px 4px;display:flex;flex-direction:column;justify-content:center}
+.part .eyebrow{font-size:10.5px;color:var(--ink)}
+.part h3{margin:6px 0 6px;font-size:clamp(20px,1.7vw,25px);color:var(--orange);letter-spacing:-.01em}
+.part p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.4}
+.part__go{position:absolute;left:14px;bottom:14px;width:40px;height:40px;border-radius:10px;background:var(--orange);color:#fff;display:grid;place-items:center;transition:transform .5s var(--ease)}
+.part:hover .part__go{transform:rotate(-8deg) scale(1.08)}
+.part__go svg{width:18px;height:18px}
+.part>a.cover{position:absolute;inset:0;z-index:2;border-radius:var(--r)}
+
+/* ---------- footer ---------- */
+.footer{background:var(--ink);color:#fff;padding-top:clamp(50px,8vh,90px);padding-bottom:30px;overflow:hidden}
+.footer__cta{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.14)}
+.footer__cta h2{margin:0;font-size:clamp(34px,4vw,60px);letter-spacing:-.03em}
+.fcols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:38px 0}
+.fcols h3{margin:0 0 14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-weight:500}
+.fcols a:hover{color:var(--orange)}
+.fcols p{margin:0;color:rgba(255,255,255,.7);font-size:14px;line-height:1.6}
+.giant{display:flex;justify-content:space-between;font-weight:800;font-size:clamp(60px,15.5vw,260px);line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);user-select:none;margin-top:10px}
+.giant span{display:inline-block;transition:color .5s,-webkit-text-stroke-color .5s;will-change:transform}
+.giant span.is-hot{color:var(--orange);-webkit-text-stroke-color:var(--orange)}
+.footer__legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(255,255,255,.55);padding-top:22px}
+
+/* sticky mobile donate bar */
+.mbar{position:fixed;z-index:40;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:none;gap:10px;padding:8px;border-radius:20px;background:rgba(35,31,32,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transform:translateY(140%);transition:transform .7s var(--ease)}
+.mbar.is-on{transform:none}
+.mbar .btn{flex:1;justify-content:center;padding:0 40px;height:50px}
+.mbar .btn--ghost{flex:none;padding:0 18px}
+.mbar .btn--ghost .d{display:none}
+
+.toast{position:fixed;z-index:120;left:50%;bottom:24px;transform:translate(-50%,160%);background:var(--ink);color:#fff;padding:14px 18px;border-radius:14px;font-size:14px;max-width:min(520px,calc(100% - 32px));box-shadow:0 20px 40px -20px rgba(0,0,0,.5);transition:transform .6s var(--ease)}
+.toast:not(.is-on){visibility:hidden;transition:transform .6s var(--ease),visibility 0s .6s}
+.toast.is-on{transform:translate(-50%,0)}
+
+@media (max-width:1100px){
+  .gift-dock{display:none}
+  .hero__copy{max-width:min(640px,88vw)}
+}
+@media (max-width:900px){
+  .nav,.header .btn{display:none}
+  .menu-btn{display:grid;margin-left:auto}
+  .about,.impact__grid,.zakat{grid-template-columns:minmax(0,1fr)}
+  .stack{height:440px;margin:0 6% 0 4%}
+  .cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .totals{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .totals .total:last-child{grid-column:1/-1}
+  .parts{grid-template-columns:minmax(0,1fr);gap:70px}
+  .part{min-height:170px}
+  .fcols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .mbar{display:flex}
+  .place{position:relative;right:auto;bottom:auto;width:100%;margin-top:-20px}
+  .take__head{grid-template-columns:minmax(0,1fr)}
+  .take__count{text-align:left;min-width:0}
+  .fcard{grid-template-columns:minmax(0,1fr);grid-template-rows:42% minmax(0,1fr);width:84vw;margin-left:-42vw}
+  .fcard__img{order:-1}
+  .flow{height:560px}
+}
+@media (max-width:600px){
+  .header{height:70px}
+  .logo{font-size:15px}
+  .hero{min-height:600px}
+  .hero__copy{bottom:120px;left:20px;right:20px;max-width:none}
+  .hero h1{font-size:clamp(42px,12.5vw,60px)}
+  .hero__ctas .btn{flex:1;justify-content:center;padding:0 40px 0 18px;font-size:12.5px}
+  .hero__ctrl{left:20px;bottom:30px}
+  .next-peek__thumb{display:none}
+  .dots{display:none}
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .cause{aspect-ratio:4/3}
+  .cause__more{grid-template-rows:1fr}
+  .row2{gap:8px}
+  .fcard h3{font-size:22px}
+  .fcard__body{padding:20px;gap:10px}
+  .flow{height:590px}
+  .zakat .fence{padding:40px 16px}
+  .giant{font-size:19vw}
+  .footer{padding-bottom:110px}
+  .route text{font-size:56px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header" id="header">
+  <a class="logo" href="#top" aria-label="Penny Appeal Caribbean, home"><span>pennyappeal</span><span>caribbean</span></a>
+  <nav class="nav" aria-label="Main"><a href="#causes">Our Work</a><a href="#take">Emergency Response</a><a href="#about">About Us</a></nav>
+  <button class="btn btn--sm" type="button" data-give>Donate <i class="d"></i><i class="d"></i><i class="d"></i></button>
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu"><i></i></button>
+</header>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <a href="#causes">Our Work</a><a href="#take">Emergency Response</a><a href="#about">About Us</a><a href="#zakat">Zakat</a>
+  <div style="margin-top:24px"><button class="btn" type="button" data-give>Donate <i class="d"></i><i class="d"></i><i class="d"></i></button></div>
+</nav>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top" aria-roledescription="carousel" aria-label="Our appeals">
+    <div id="slides"></div>
+    <div class="hero__shade"></div>
+    <div class="hero__copy" id="heroCopy" aria-live="polite"></div>
+    <div class="gift-dock" id="giftDock">
+      <form class="gift" id="gift" novalidate>
+        <div class="gift__head"><h2 id="giftTitle">Choose your gift</h2><span class="chip" id="giftFreqChip">ONE-TIME</span></div>
+        <label class="field"><span>Choose a programme</span><span class="select"><select id="gProg">
+          <option value="most">Where most needed</option><option value="thirst">Thirst Relief</option><option value="feed">Feed Our World</option><option value="orphan">OrphanKind</option><option value="emergency">Emergency Response</option><option value="zakat">Zakat</option></select></span></label>
+        <div class="row2">
+          <label class="field"><span>Currency</span><span class="select"><select id="gCur"><option>CAD</option><option>USD</option><option>TTD</option><option>JMD</option><option>GYD</option><option>XCD</option></select></span></label>
+          <div class="field"><span id="freqLbl">Frequency</span><div class="seg" id="gFreq" data-v="once" role="group" aria-labelledby="freqLbl"><i class="seg__pill"></i><button type="button" data-v="once" aria-pressed="true">One-time</button><button type="button" data-v="monthly" aria-pressed="false">Monthly</button></div></div>
+        </div>
+        <fieldset><legend id="amtLbl">Choose an amount (CAD)</legend>
+          <div class="amounts" id="gAmts"></div>
+          <label class="custom"><span class="sr">Other amount</span><b id="gCurTag">CAD</b><input id="gCustom" inputmode="decimal" placeholder="Other amount" autocomplete="off"></label>
+        </fieldset>
+        <button class="btn" type="submit">Continue to checkout <i class="d"></i><i class="d"></i><i class="d"></i></button>
+        <p class="gift__note" id="gNote"></p>
+      </form>
+    </div>
+    <div class="hero__ctrl">
+      <button class="round" id="prev" type="button" aria-label="Previous appeal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="round" id="next" type="button" aria-label="Next appeal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button class="next-peek" id="peek" type="button"><span class="next-peek__thumb"><img id="peekImg" alt=""></span><span><small>NEXT</small><b id="peekName">Feed Our World</b></span></button>
+      <div class="dots" id="dots" role="tablist" aria-label="Choose appeal"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about container" id="about" aria-labelledby="aboutTitle">
+    <div>
+      <h2 class="h2" id="aboutTitle" data-lines><span>Penny Appeal</span><span class="accent">Caribbean</span></h2>
+      <p class="words" data-words>Penny Appeal Canada is a Canadian humanitarian organization. Since 2019, we have been working across food security, clean water, emergency response, and orphan care, addressing the fundamentals that empower families to rise out of poverty.</p>
+      <a class="btn btn--ink" href="#causes">Our programmes <i class="d"></i><i class="d"></i><i class="d"></i></a>
+    </div>
+    <div class="stack" id="stack" aria-hidden="true"></div>
+  </section>
+  <div class="prog-ticker" aria-label="Programmes on the ground">
+    <h2 class="sr">Programmes on the ground</h2>
+    <div class="ticker" id="progTicker"><div class="ticker__track" id="progTrack"></div></div>
+  </div>
+
+  <!-- CAUSES -->
+  <section class="causes container" id="causes" aria-labelledby="causesTitle">
+    <img class="causes__map" id="carMap" src="https://pennyappeal-caribbean.netlify.app/images/caribbean-map.png?v=carib5" alt="" aria-hidden="true">
+    <div class="causes__head">
+      <h2 class="h2" id="causesTitle" data-lines><span>Donate to a cause</span><span>you <em>care</em> about</span></h2>
+      <p class="lead">Penny Appeal Caribbean is a Muslim charity working across the region. We keep Zakat restricted from general funds.</p>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- CURVED MARQUEE -->
+  <div class="route" aria-label="Give with care. Reach families. Stand with communities.">
+    <svg viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true" id="routeSvg">
+      <path id="routePath" d="M-80 170 C 240 60, 520 40, 760 110 S 1260 210, 1520 60" fill="none"/>
+      <path class="band" d="M-80 170 C 240 60, 520 40, 760 110 S 1260 210, 1520 60"/>
+      <text dy="15"><textPath href="#routePath" id="routeText"></textPath></text>
+    </svg>
+    <button class="route__pause" id="routePause" type="button" aria-label="Pause the moving text" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+  </div>
+
+  <!-- IMPACT -->
+  <section class="impact container" id="impact" aria-labelledby="impactTitle">
+    <div class="impact__grid">
+      <div>
+        <h2 class="h2" id="impactTitle" data-lines><span>Our impact</span><span>reaches across</span><span><em>communities</em></span></h2>
+        <p class="lead">Since 2019, we have supported food security, clean water, child sponsorship, and emergency response in the places where families need it.</p>
+        <div class="chips" id="chips" role="group" aria-label="Filter by programme"></div>
+      </div>
+      <div class="worldmap" id="worldmap">
+        <img class="worldmap__img" src="https://pennyappeal-caribbean.netlify.app/images/impact-world-map.svg" alt="World map showing where Penny Appeal works" id="mapImg">
+        <div class="place" id="place" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="raised">
+      <div class="raised__head">
+        <h3>Together we raised <strong><small>CAD</small>$<span data-count="7672075">0</span></strong> in 2026</h3>
+        <span class="raised__date">Last updated: August 31, 2026</span>
+      </div>
+      <div class="totals" id="totals"></div>
+    </div>
+  </section>
+
+  <!-- FIELD PHOTOGRAPHS -->
+  <section class="field-photos" aria-labelledby="photosTitle">
+    <div class="container title"><h2 class="eyebrow" id="photosTitle" style="color:var(--thirst-deep)">Field photographs</h2><span style="font-size:13px;color:var(--ink-2)">Drag to look around</span></div>
+    <div class="ticker" id="photosA"><div class="ticker__track"></div></div>
+    <div class="ticker" id="photosB"><div class="ticker__track"></div></div>
+  </section>
+
+  <!-- TAKE ACTION -->
+  <section class="take container" id="take" aria-labelledby="takeTitle" aria-roledescription="carousel">
+    <div class="take__head">
+      <div><h2 class="h2" id="takeTitle" data-lines><span>Take action <em>today</em></span></h2><p class="lead">We focus on long-term solutions that help families build stability, dignity, and resilience across the Caribbean.</p></div>
+      <div class="take__nav"><span class="take__count" id="takeCount" aria-live="polite">Thirst Relief, 1 of 4</span>
+        <button class="round" id="tPrev" type="button" aria-label="Previous programme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="round" id="tNext" type="button" aria-label="Next programme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button></div>
+    </div>
+    <div class="flow" id="flow"></div>
+  </section>
+
+  <!-- ZAKAT -->
+  <section class="zakat container" id="zakat" aria-labelledby="zakatTitle">
+    <div>
+      <h2 class="h2" id="zakatTitle" data-lines><span>Zakat, kept</span><span><em>restricted</em></span></h2>
+      <p>Thirst Relief, Feed Our World, and OrphanKind. We do not mix it with general funds.</p>
+      <button class="btn btn--white" type="button" data-give="zakat">Calculate Zakat <i class="d"></i><i class="d"></i><i class="d"></i></button>
+    </div>
+    <div class="fence" id="fence">
+      <svg aria-hidden="true"><rect id="fenceRect" x="1" y="1" rx="34" ry="34"/></svg>
+      <span class="lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+      <span class="pill"><i style="background:var(--thirst)"></i>Thirst Relief</span>
+      <span class="pill"><i style="background:var(--feed)"></i>Feed Our World</span>
+      <span class="pill"><i style="background:var(--orphan)"></i>OrphanKind</span>
+      <span class="fence__note">ZAKAT ONLY</span>
+    </div>
+  </section>
+
+  <!-- IMPORTANT PARTS -->
+  <section class="important container" aria-labelledby="impTitle">
+    <h2 class="h2" id="impTitle" data-lines><span>The important <em>parts</em></span></h2>
+    <div class="parts">
+      <article class="part"><div class="part__fig"><img src="https://pennyappeal-caribbean.netlify.app/images/cutout-reports.png" alt="" loading="lazy"></div><div class="part__body"><span class="eyebrow">Read the reports</span><h3>Financial Reports</h3><p>What came in, and where it was spent.</p></div><span class="part__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><a class="cover" href="#" aria-label="Read the financial reports"></a></article>
+      <article class="part"><div class="part__fig"><img src="https://pennyappeal-caribbean.netlify.app/images/cutout-scholars.png" alt="" loading="lazy"></div><div class="part__body"><span class="eyebrow">Meet the scholars</span><h3>Our Scholars</h3><p>The scholars who review the fiqh of our programmes.</p></div><span class="part__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><a class="cover" href="#" aria-label="Meet our scholars"></a></article>
+      <article class="part"><div class="part__fig"><img src="https://pennyappeal-caribbean.netlify.app/images/cutout-volunteer.png" alt="" loading="lazy"></div><div class="part__body"><span class="eyebrow">Volunteer with us</span><h3>Volunteer</h3><p>Events, packs, and local work. Give the hours you have.</p></div><span class="part__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><a class="cover" href="#" aria-label="Volunteer with us"></a></article>
+    </div>
+  </section>
+</main>
+
+<footer class="footer container">
+  <div class="footer__cta"><h2>Support the <span class="accent" style="font-family:var(--serif);font-style:italic;font-weight:400;color:var(--orange)">work</span></h2><button class="btn" type="button" data-give>Donate <i class="d"></i><i class="d"></i><i class="d"></i></button></div>
+  <div class="fcols">
+    <div><h3>Penny Appeal Caribbean</h3><p>Contact: [PLACEHOLDER]<br>Charity number: [PLACEHOLDER]</p></div>
+    <div><h3>Programmes</h3><ul><li><a href="#causes">Thirst Relief</a></li><li><a href="#causes">Feed Our World</a></li><li><a href="#causes">OrphanKind</a></li><li><a href="#take">Emergency Response</a></li></ul></div>
+    <div><h3>Get involved</h3><ul><li><a href="#zakat">Zakat</a></li><li><button type="button" data-give="monthly">Give monthly</button></li><li><a href="#">Volunteer</a></li><li><a href="#">News</a></li></ul></div>
+    <div><h3>Legal</h3><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul><p style="margin-top:14px;font-size:13px">Currencies we accept include TTD, JMD, GYD, XCD, USD, and CAD.</p></div>
+  </div>
+  <div class="giant" id="giant" aria-hidden="true"></div>
+  <div class="footer__legal"><span>© 2026 Penny Appeal Caribbean</span><span>Give with care. Reach families. Stand with communities.</span></div>
+</footer>
+
+<div class="mbar" id="mbar"><a class="btn btn--ghost" href="#zakat">Zakat</a><button class="btn" type="button" data-give>Donate <i class="d"></i><i class="d"></i><i class="d"></i></button></div>
+
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="giftTitle">
+  <div class="drawer__shade" data-close></div>
+  <div class="drawer__panel" data-lenis-prevent>
+    <button class="drawer__close" type="button" data-close aria-label="Close">×</button>
+    <div id="drawerSlot"></div>
+    <ul class="drawer__trust">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5 9-10"/></svg>Zakat is kept restricted from general funds.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5 9-10"/></svg>Give in TTD, JMD, GYD, XCD, USD or CAD.</li>
+    </ul>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+'use strict';
+gsap.registerPlugin(ScrollTrigger);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const touch = matchMedia('(hover: none)').matches;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const IMG = 'https://pennyappeal-caribbean.netlify.app/images/';
+const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const DOTS = '<i class="d"></i><i class="d"></i><i class="d"></i>';
+
+/* ---------- smooth scroll ---------- */
+const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: !reduced });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+$$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length < 2) return; const t = $(id); if (!t) return; e.preventDefault(); closeMenu(); lenis.scrollTo(t, { offset: id === '#top' ? 0 : -70, duration: 1.4 }); }));
+
+/* ---------- programme data ---------- */
+const P = {
+  thirst: { name: 'Thirst Relief', c: 'var(--thirst)', cd: 'var(--thirst-deep)', where: 'Berbice, Guyana', img: 'work-thirst.jpg', line: 'A communal tap in Berbice means drinking, cooking, and washing without a day lost to fetching water.' },
+  feed: { name: 'Feed Our World', c: 'var(--feed)', cd: 'var(--feed-deep)', where: 'Couva, Trinidad', img: 'work-feed.jpg', line: 'Food packs and shared kitchens in Couva keep families fed this week, and skills that last beyond it.' },
+  orphan: { name: 'OrphanKind', c: 'var(--orphan)', cd: 'var(--orphan-deep)', where: 'Georgetown, Guyana', img: 'work-schoolyard.jpg', line: 'OrphanKind sponsorship covers fees, uniform, and a hot meal at midday.' },
+  emergency: { name: 'Emergency Response', c: 'var(--emergency)', cd: 'var(--emergency-deep)', where: 'Gaza', img: 'work-emergency.jpg', line: 'When a storm or flood hits, food, water, and shelter move first. Restricted Sadaqah, released fast.' }
+};
+
+/* ---------- header: solid after hero, hides on scroll down ---------- */
+const header = $('#header'); let lastY = 0;
+lenis.on('scroll', ({ scroll }) => {
+  header.classList.toggle('is-solid', scroll > innerHeight * .75);
+  header.classList.toggle('is-hidden', scroll > innerHeight && scroll > lastY + 2 && !document.body.classList.contains('menu-open'));
+  if (scroll < lastY - 2) header.classList.remove('is-hidden');
+  lastY = scroll;
+  $('#mbar').classList.toggle('is-on', scroll > innerHeight * .6);
+});
+/* mobile menu: circle wipe from the button */
+const menuBtn = $('#menuBtn');
+function closeMenu() { if (!document.body.classList.contains('menu-open')) return; document.body.classList.remove('menu-open'); menuBtn.setAttribute('aria-expanded', 'false'); lenis.start(); }
+menuBtn.addEventListener('click', () => { const open = !document.body.classList.contains('menu-open'); document.body.classList.toggle('menu-open', open); menuBtn.setAttribute('aria-expanded', open); open ? lenis.stop() : lenis.start(); });
+
+/* ---------- buttons: glow follows pointer ---------- */
+document.addEventListener('pointermove', e => { const b = e.target.closest && e.target.closest('.btn'); if (!b) return; const r = b.getBoundingClientRect(); b.style.setProperty('--gx', (e.clientX - r.left) + 'px'); b.style.setProperty('--gy', (e.clientY - r.top) + 'px'); });
+
+/* ======================================================
+   HERO carousel: wipe + Ken Burns + line reveal + autoplay progress
+   ====================================================== */
+const SLIDES = [
+  { k: 'thirst', eyebrow: 'Thirst Relief', a: 'Water for', b: 'community', sub: 'A well in Berbice starts with a gift today.', img: 'hero-thirst.jpg' },
+  { k: 'feed', eyebrow: 'Feed Our World', a: 'Food for', b: 'families', sub: 'Food packs for families in Couva and across the region.', img: 'hero-feed.jpg' },
+  { k: 'orphan', eyebrow: 'OrphanKind', a: 'Care for', b: 'every child', sub: 'School, meals, and care for one child at a time.', img: 'hero-orphan.jpg' },
+  { k: 'emergency', eyebrow: 'Emergency Response', a: 'Help when', b: 'it is needed', sub: 'Shelter, water, and food when a crisis hits.', img: 'hero-emergency.jpg' }
+];
+const slidesEl = $('#slides'), copy = $('#heroCopy'), dotsEl = $('#dots');
+slidesEl.innerHTML = SLIDES.map((s, i) => `<div class="slide${i ? '' : ' is-current'}" aria-hidden="${i ? 'true' : 'false'}"><img src="${IMG + s.img}" alt="" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}></div>`).join('');
+dotsEl.innerHTML = SLIDES.map((s, i) => `<button type="button" role="tab" aria-label="${s.eyebrow}" aria-selected="${!i}"><span></span></button>`).join('');
+const slideEls = $$('.slide'), dotEls = $$('#dots button');
+let cur = 0, busy = false, timer = null; const DUR = 7;
+function renderCopy(s, animate) {
+  copy.innerHTML = `<div class="hero__eyebrow eyebrow"><i></i>${s.eyebrow}</div>
+    <h1><span class="reveal-line"><span>${s.a}</span></span> <span class="reveal-line"><span><span class="box">${s.b}</span></span></span></h1>
+    <p class="hero__sub">${s.sub}</p>
+    <div class="hero__ctas"><button class="btn" type="button" data-give="${s.k}">Donate now ${DOTS}</button><button class="btn btn--ghost" type="button" data-give="zakat">Give Zakat ${DOTS}</button></div>`;
+  if (!animate || reduced) return;
+  gsap.from($$('.reveal-line>span', copy), { yPercent: 110, duration: 1.1, ease: 'expo.out', stagger: .09 });
+  gsap.from([$('.hero__eyebrow', copy), $('.hero__sub', copy), $('.hero__ctas', copy)], { y: 16, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, delay: .25 });
+}
+function peek() { const n = SLIDES[(cur + 1) % SLIDES.length]; $('#peekImg').src = IMG + n.img; $('#peekName').textContent = n.eyebrow; }
+let progTween = null;
+function runProgress() {
+  dotEls.forEach((d, i) => { d.classList.toggle('is-done', i < cur); d.setAttribute('aria-selected', i === cur); gsap.set($('span', d), { scaleX: i < cur ? 1 : 0 }); });
+  progTween && progTween.kill();
+  if (reduced) return;
+  progTween = gsap.to($('span', dotEls[cur]), { scaleX: 1, duration: DUR, ease: 'none', onComplete: () => go(cur + 1) });
+}
+function go(n, dir = 1) {
+  n = (n + SLIDES.length) % SLIDES.length; if (n === cur || busy) return; busy = true;
+  const from = slideEls[cur], to = slideEls[n];
+  to.classList.add('is-entering'); to.setAttribute('aria-hidden', 'false'); from.setAttribute('aria-hidden', 'true');
+  const img = $('img', to); img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
+  gsap.fromTo(to, { clipPath: dir > 0 ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0%)', duration: reduced ? 0 : 1.25, ease: 'expo.inOut', onComplete: () => {
+    from.classList.remove('is-current'); gsap.set(from, { clearProps: 'clipPath' }); to.classList.add('is-current'); to.classList.remove('is-entering'); gsap.set(to, { clearProps: 'clipPath' }); busy = false; } });
+  gsap.to($('img', from), { xPercent: dir > 0 ? -8 : 8, duration: 1.25, ease: 'expo.inOut', onComplete: () => gsap.set($('img', from), { xPercent: 0 }) });
+  gsap.to($$('.reveal-line>span, .hero__eyebrow, .hero__sub, .hero__ctas', copy), { yPercent: -60, opacity: 0, duration: .45, ease: 'power3.in', stagger: .03, onComplete: () => renderCopy(SLIDES[n], true) });
+  cur = n; peek(); runProgress();
+}
+$('#next').addEventListener('click', () => go(cur + 1, 1));
+$('#peek').addEventListener('click', () => go(cur + 1, 1));
+$('#prev').addEventListener('click', () => go(cur - 1, -1));
+dotEls.forEach((d, i) => d.addEventListener('click', () => go(i, i > cur ? 1 : -1)));
+// pause while the visitor is choosing a gift
+const hero = $('.hero');
+['focusin', 'pointerenter'].forEach(ev => $('#giftDock').addEventListener(ev, () => progTween && progTween.pause()));
+['focusout', 'pointerleave'].forEach(ev => $('#giftDock').addEventListener(ev, () => { if (!$('#giftDock').contains(document.activeElement)) progTween && progTween.resume(); }));
+// swipe on touch
+(() => { let sx = null; hero.addEventListener('touchstart', e => { if (e.target.closest('.gift')) return; sx = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); sx = null; }); })();
+renderCopy(SLIDES[0], false); peek();
+
+/* ======================================================
+   GIFT form (one form, docked in the hero or moved into the drawer)
+   ====================================================== */
+const PRESETS = { CAD: [50, 100, 250], USD: [50, 100, 250], TTD: [300, 700, 1700], JMD: [7500, 15000, 40000], GYD: [10000, 20000, 50000], XCD: [130, 270, 680] };
+const g = { prog: $('#gProg'), cur: $('#gCur'), freq: 'once', amt: 50 };
+const fmt = (c, v) => `${c} ${Number(v).toLocaleString('en-CA', { maximumFractionDigits: 2 })}`;
+function renderAmounts() {
+  const c = g.cur.value, list = PRESETS[c];
+  if (!list.includes(g.amt) && !$('#gCustom').value) g.amt = list[0];
+  $('#gAmts').innerHTML = list.map(v => `<button type="button" aria-pressed="${v === g.amt && !$('#gCustom').value}" data-v="${v}">${fmt(c, v)}</button>`).join('');
+  $('#amtLbl').textContent = `Choose an amount (${c})`; $('#gCurTag').textContent = c;
+  note();
+}
+function note() {
+  const v = $('#gCustom').value ? parseFloat($('#gCustom').value.replace(/,/g, '')) : g.amt;
+  const p = g.prog.options[g.prog.selectedIndex].text;
+  $('#gNote').innerHTML = v > 0 ? `<strong>${fmt(g.cur.value, v)}</strong> ${g.freq === 'monthly' ? 'every month' : 'once'} to ${p}` : 'Enter an amount to continue';
+  $('#giftFreqChip').textContent = g.freq === 'monthly' ? 'MONTHLY · AUTOGIVE' : 'ONE-TIME';
+}
+$('#gAmts').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; g.amt = +b.dataset.v; $('#gCustom').value = ''; $$('#gAmts button').forEach(x => x.setAttribute('aria-pressed', x === b)); note(); });
+$('#gCustom').addEventListener('input', () => { $$('#gAmts button').forEach(x => x.setAttribute('aria-pressed', 'false')); note(); });
+g.cur.addEventListener('change', () => { $('#gCustom').value = ''; g.amt = PRESETS[g.cur.value][0]; renderAmounts(); });
+g.prog.addEventListener('change', note);
+$('#gFreq').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; g.freq = b.dataset.v; $('#gFreq').dataset.v = g.freq; $$('#gFreq button').forEach(x => x.setAttribute('aria-pressed', x === b)); note(); });
+$('#gift').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = $('#gCustom').value ? parseFloat($('#gCustom').value.replace(/,/g, '')) : g.amt;
+  if (!(v > 0)) { gsap.fromTo('.custom', { x: -6 }, { x: 0, duration: .6, ease: 'elastic.out(1,.3)' }); $('#gCustom').focus(); return; }
+  toast(`Ready: ${fmt(g.cur.value, v)} ${g.freq === 'monthly' ? 'monthly' : 'one-time'} to ${g.prog.options[g.prog.selectedIndex].text}. Checkout connects here in production.`);
+});
+renderAmounts();
+
+/* drawer */
+const drawer = $('#drawer'), dock = $('#giftDock'), gift = $('#gift'); let lastFocus = null;
+function openGift(preset) {
+  if (preset === 'monthly') { $('#gFreq [data-v="monthly"]').click(); }
+  else if (preset && g.prog.querySelector(`option[value="${preset}"]`)) { g.prog.value = preset; note(); }
+  const docked = getComputedStyle(dock).display !== 'none' && scrollY < innerHeight * .5;
+  if (docked) { gsap.fromTo(gift, { y: 0 }, { y: -8, duration: .25, yoyo: true, repeat: 1, ease: 'power2.out' }); g.prog.focus(); return; }
+  lastFocus = document.activeElement; $('#drawerSlot').appendChild(gift);
+  drawer.classList.add('is-open'); lenis.stop(); closeMenu(); progTween && progTween.pause();
+  setTimeout(() => g.prog.focus({ preventScroll: true }), 300);
+}
+function closeGift() { drawer.classList.remove('is-open'); lenis.start(); setTimeout(() => { if (!drawer.classList.contains('is-open')) dock.appendChild(gift); }, 700); lastFocus && lastFocus.focus({ preventScroll: true }); progTween && progTween.resume(); }
+document.addEventListener('click', e => { const b = e.target.closest('[data-give]'); if (b) { e.preventDefault(); openGift(b.dataset.give); } });
+$$('[data-close]', drawer).forEach(b => b.addEventListener('click', closeGift));
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') { if (drawer.classList.contains('is-open')) closeGift(); else if (document.body.classList.contains('menu-open')) closeMenu(); }
+  if (e.key === 'Tab' && drawer.classList.contains('is-open')) { const f = $$('button, select, input', drawer.querySelector('.drawer__panel')).filter(x => !x.disabled && x.offsetParent); const i = f.indexOf(document.activeElement);
+    if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); } }
+});
+let tt; function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('is-on'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('is-on'), 4200); }
+
+/* ======================================================
+   Reveals: line masks, word brightening, rises
+   ====================================================== */
+$$('[data-lines]').forEach(h => {
+  h.innerHTML = [...h.children].map(s => `<span class="reveal-line"><span class="${s.className}">${s.innerHTML}</span></span>`).join(' ');
+  if (reduced) return;
+  gsap.from($$('.reveal-line>span', h), { yPercent: 110, duration: 1.2, ease: 'expo.out', stagger: .1, scrollTrigger: { trigger: h, start: 'top 85%' } });
+});
+$$('[data-words]').forEach(p => {
+  p.innerHTML = p.textContent.split(' ').map(w => `<span class="w">${w}</span>`).join(' ');
+  const ws = $$('.w', p);
+  if (reduced) { ws.forEach(w => w.style.opacity = 1); return; }
+  ScrollTrigger.create({ trigger: p, start: 'top 80%', end: 'bottom 45%', scrub: true, onUpdate: s => { const n = s.progress * ws.length; ws.forEach((w, i) => w.style.opacity = clamp(.16 + (n - i) * .84, .16, 1)); } });
+});
+
+/* ======================================================
+   About: polaroid stack straightening on scroll
+   ====================================================== */
+const SHOTS = [{ img: 'work-schoolyard.jpg', cap: 'Georgetown', r: -9, x: 0, y: 4, s: 70 }, { img: 'work-feed.jpg', cap: 'Couva', r: 7, x: 44, y: 0, s: -60 }, { img: 'work-thirst.jpg', cap: 'Berbice', r: -3, x: 20, y: 34, s: 30 }];
+$('#stack').innerHTML = SHOTS.map(s => `<figure style="left:${s.x}%;top:${s.y}%"><img src="${IMG + s.img}" alt="" loading="lazy"><figcaption>${s.cap}</figcaption></figure>`).join('');
+$$('#stack figure').forEach((f, i) => { const s = SHOTS[i]; gsap.fromTo(f, { rotate: s.r, y: s.s }, { rotate: s.r * .25, y: -s.s * .4, ease: 'none', scrollTrigger: { trigger: '#stack', start: 'top bottom', end: 'bottom top', scrub: 1 } }); });
+
+/* ======================================================
+   Drag-able drifting tickers (programmes + field photos)
+   ====================================================== */
+function dragDrift(viewport, speed) {
+  const track = $('.ticker__track', viewport), st = { x: 0, v: 0, drag: false, hover: false, lx: 0, lt: 0, moved: 0, w: 0 };
+  viewport.addEventListener('pointerdown', e => { st.drag = true; st.moved = 0; st.lx = e.clientX; st.lt = performance.now(); st.v = 0; viewport.classList.add('is-drag'); viewport.setPointerCapture(e.pointerId); });
+  viewport.addEventListener('pointermove', e => { if (!st.drag) return; const dx = e.clientX - st.lx, now = performance.now(); st.x += dx; st.moved += Math.abs(dx); st.v = dx / Math.max(1, now - st.lt) * 16; st.lx = e.clientX; st.lt = now; });
+  const end = () => { st.drag = false; viewport.classList.remove('is-drag'); };
+  viewport.addEventListener('pointerup', end); viewport.addEventListener('pointercancel', end);
+  viewport.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') st.hover = true; });
+  viewport.addEventListener('pointerleave', () => st.hover = false);
+  viewport.addEventListener('click', e => { if (st.moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+  return { measure() { st.w = track.scrollWidth / 3; }, tick(dt, boost) {
+    if (!st.drag) { st.x += st.v; st.v *= .94; if (!st.hover && !reduced) st.x -= (speed + boost * Math.sign(speed || 1)) * dt; }
+    if (st.w) { while (st.x > 0) st.x -= st.w; while (st.x < -st.w * 2) st.x += st.w; }
+    track.style.transform = `translate3d(${st.x}px,0,0)`;
+  } };
+}
+const PROGS = [['thirst', 'Guyana', 'A communal tap in Berbice'], ['feed', 'Trinidad', 'The Couva kitchen that feeds on Fridays'], ['orphan', 'Guyana', 'One desk in Georgetown'], ['emergency', 'Gaza', 'Food, water, and shelter first']];
+const progOnce = PROGS.map(([k, where, line]) => `<div class="prog"><i style="background:${P[k].c}">${P[k].name[0]}</i><div><b>${P[k].name} is at work in ${where}</b><span>${line}</span></div></div>`).join('');
+$('#progTrack').innerHTML = progOnce.repeat(3);
+const PHOTOS = [['hero-thirst.jpg', 'Thirst Relief'], ['work-feed.jpg', 'Feed Our World'], ['hero-orphan.jpg', 'OrphanKind'], ['hero-emergency.jpg', 'Gaza, 2024'], ['work-thirst.jpg', 'Thirst Relief'], ['hero-feed.jpg', 'Feed Our World'], ['work-emergency.jpg', 'Gaza, 2026'], ['happen-thirst.jpg', 'Thirst Relief']];
+const photoHTML = list => list.map(([f, c]) => `<figure class="photo" style="margin:0"><img src="${IMG + f}" alt="${c}, field photograph" loading="lazy" draggable="false"><span>${c}</span></figure>`).join('');
+$('#photosA .ticker__track').innerHTML = photoHTML(PHOTOS).repeat(3);
+$('#photosB .ticker__track').innerHTML = photoHTML(PHOTOS.slice(4).concat(PHOTOS.slice(0, 4))).repeat(3);
+const tickers = [dragDrift($('#progTicker'), 38), dragDrift($('#photosA'), 26), dragDrift($('#photosB'), -26)];
+
+/* ======================================================
+   Causes
+   ====================================================== */
+const CAUSES = [
+  { k: 'orphan', label: 'AutoGive', title: 'AutoGive', line: 'Give every month, and keep a tap running in Berbice.', cta: 'Give monthly', give: 'monthly', img: 'work-feed.jpg', icon: '<path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/>' },
+  { k: 'zakat', label: 'Zakat', title: 'Zakat', line: 'Calculated, then kept restricted.', cta: 'Calculate Zakat', give: 'zakat', img: 'hero-thirst.jpg', icon: '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>' },
+  { k: 'orphan', label: 'Sponsor a child', title: 'Sponsor a child', line: 'School, meals, and care for one child.', cta: 'Sponsor', give: 'orphan', img: 'hero-orphan.jpg', icon: '<circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>' },
+  { k: 'thirst', label: 'Thirst Relief', title: 'Thirst Relief', line: 'A communal tap in Berbice.', cta: 'Support Thirst Relief', give: 'thirst', img: 'work-thirst.jpg', icon: '<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>' },
+  { k: 'feed', label: 'Feed Our World', title: 'Feed Our World', line: 'Food packs and kitchens in Couva.', cta: 'Support Feed', give: 'feed', img: 'hero-feed.jpg', icon: '<path d="M4 11h16a8 8 0 0 1-16 0zM8 7c0-2 2-2 2-4M14 7c0-2 2-2 2-4"/>' },
+  { k: 'orphan', label: 'OrphanKind', title: 'OrphanKind', line: 'School, meals, and care in Georgetown.', cta: 'Support OrphanKind', give: 'orphan', img: 'work-schoolyard.jpg', icon: '<path d="M12 21s-8-5-8-11a5 5 0 0 1 8-3 5 5 0 0 1 8 3c0 6-8 11-8 11z"/>' }
+];
+const CC = { orphan: ['var(--orange)', 'var(--orange-deep)'], zakat: ['#3f3a39', '#231f20'], thirst: ['var(--thirst)', 'var(--thirst-deep)'], feed: ['var(--feed)', 'var(--feed-deep)'] };
+$('#cards').innerHTML = CAUSES.map(c => `<article class="cause" style="--c:${CC[c.k][0]};--cd:${CC[c.k][1]}">
+  <img src="${IMG + c.img}" alt="" loading="lazy">
+  <h3>${c.title}</h3>
+  <div class="cause__more"><div><p>${c.line}</p></div></div>
+  <div class="cause__foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${c.icon}</svg>${c.cta}<span class="arr">${ARROW.replace('<svg', '<svg style="width:18px;height:18px"')}</span></div>
+  <a class="cover" href="#" data-give="${c.give}" aria-label="${c.cta}"></a></article>`).join('');
+if (!reduced) {
+  gsap.from('.cause', { y: 60, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: { each: .08, grid: 'auto' }, scrollTrigger: { trigger: '#cards', start: 'top 85%' } });
+  gsap.to('#carMap', { y: -60, ease: 'none', scrollTrigger: { trigger: '#causes', start: 'top bottom', end: 'bottom top', scrub: true } });
+}
+
+/* ======================================================
+   Curved velocity marquee
+   ====================================================== */
+const PHRASE = 'Give with care · reach families · stand with communities · ';
+const rt = $('#routeText'); rt.textContent = PHRASE.repeat(6);
+let phraseLen = 0, routeX = 0, routePaused = reduced;
+function measureRoute() { const tmp = document.createElementNS('http://www.w3.org/2000/svg', 'text'); tmp.setAttribute('style', getComputedStyle(rt.parentNode).cssText); tmp.textContent = PHRASE; tmp.style.fontSize = getComputedStyle(rt.parentNode).fontSize; $('#routeSvg').appendChild(tmp); phraseLen = tmp.getComputedTextLength(); tmp.remove(); }
+$('#routePause').addEventListener('click', e => { routePaused = !routePaused; e.currentTarget.setAttribute('aria-pressed', routePaused); e.currentTarget.innerHTML = routePaused ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>' : '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'; e.currentTarget.setAttribute('aria-label', routePaused ? 'Play the moving text' : 'Pause the moving text'); });
+
+/* ======================================================
+   Impact: programme chips, map pins, place card
+   ====================================================== */
+// pins placed by lat/lon; projection fitted to the map artwork's own anchors (Georgetown, Couva, Berbice, Gaza)
+const proj = (lat, lon) => ({ x: 53.51 + lon * .3911, y: 60.29 - lat * .7656 });
+const PINS = [
+  { k: 'thirst', lat: 6.3, lon: -57.5, t: 'Berbice, Guyana' }, { k: 'orphan', lat: 6.8, lon: -58.2, t: 'Georgetown, Guyana' }, { k: 'feed', lat: 10.4, lon: -61.4, t: 'Couva, Trinidad' },
+  { k: 'feed', lat: 18, lon: -76.8, t: 'Jamaica' }, { k: 'emergency', lat: 31.5, lon: 34.4, t: 'Gaza' }, { k: 'feed', lat: 31.95, lon: 35.9, t: 'Jordan' },
+  { k: 'emergency', lat: 15.6, lon: 32.5, t: 'Sudan' }, { k: 'thirst', lat: 24.9, lon: 67, t: 'Pakistan' }, { k: 'orphan', lat: 39.9, lon: 32.9, t: 'Turkey' }, { k: 'feed', lat: 28.6, lon: 77.2, t: 'India' }
+].map(p => Object.assign(p, proj(p.lat, p.lon)));
+const wm = $('#worldmap');
+PINS.forEach(p => { const el = document.createElement('span'); el.className = 'pin'; el.style.left = p.x + '%'; el.style.top = p.y + '%'; el.style.setProperty('--c', P[p.k].c); el.dataset.k = p.k; el.title = p.t; wm.insertBefore(el, $('#place')); });
+$('#chips').innerHTML = Object.entries(P).map(([k, p], i) => `<button type="button" style="--c:${p.c}" data-k="${k}" aria-pressed="${!i}">${p.name}</button>`).join('');
+function placeHTML(k) { const p = P[k]; return `<div class="place__in"><div class="place__img"><img src="${IMG + p.img}" alt="${p.name} in ${p.where}"></div><div><small>${p.where}</small><h3>${p.name}</h3><p>${p.line}</p><a class="link-arrow" href="#take" style="color:${p.cd}">Programme details ${ARROW}</a></div></div>`; }
+const place = $('#place');
+function pick(k, first) {
+  $$('#chips button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k));
+  $$('.pin', wm).forEach(el => { el.classList.toggle('is-on', el.dataset.k === k); el.classList.toggle('is-off', el.dataset.k !== k); });
+  if (first) { place.innerHTML = placeHTML(k); return; }
+  const h0 = place.offsetHeight; place.style.height = h0 + 'px';
+  gsap.to(place.firstElementChild, { opacity: 0, y: -10, duration: .25, ease: 'power2.in', onComplete: () => {
+    place.innerHTML = placeHTML(k); const inner = place.firstElementChild; place.style.height = inner.offsetHeight + 'px';
+    gsap.from(inner, { opacity: 0, y: 12, duration: .5, ease: 'expo.out' }); gsap.from($('img', inner), { scale: 1.25, duration: 1, ease: 'expo.out' });
+    setTimeout(() => place.style.height = '', 520);
+  } });
+}
+$('#chips').addEventListener('click', e => { const b = e.target.closest('button'); if (b) pick(b.dataset.k); });
+pick('thirst', true);
+$$('.pin', wm).forEach((el, i) => el.style.transitionDelay = (i * .06) + 's');
+ScrollTrigger.create({ trigger: wm, start: 'top 75%', once: true, onEnter: () => { wm.classList.add('is-in'); setTimeout(() => $$('.pin', wm).forEach(el => el.style.transitionDelay = ''), 1400); } });
+
+/* totals with counters and proportional bars */
+const TOTALS = [['thirst', 'Thirst Relief', 465042], ['orphan', 'OrphanKind', 925375], ['feed', 'Feed Our World', 860365], ['zakat', 'Zakat', 3764433], ['emergency', 'Emergency Response', 1625885]];
+const TC = { thirst: 'var(--thirst)', orphan: 'var(--orange)', feed: 'var(--feed)', zakat: 'var(--green)', emergency: 'var(--emergency)' };
+const maxT = Math.max(...TOTALS.map(t => t[2]));
+$('#totals').innerHTML = TOTALS.map(([k, n, v]) => `<div class="total" style="--c:${TC[k]}"><b>${n}</b><div class="amt"><small>CAD</small>$<span data-count="${v}">0</span></div><div class="bar"><i data-w="${v / maxT}"></i></div><button type="button" data-give="${k}">Chip in <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>`).join('');
+ScrollTrigger.create({ trigger: '.raised', start: 'top 80%', once: true, onEnter: () => {
+  $$('[data-count]').forEach(el => { const o = { v: 0 }, end = +el.dataset.count; gsap.to(o, { v: end, duration: reduced ? 0 : 2.2, ease: 'power3.out', onUpdate: () => el.textContent = Math.round(o.v).toLocaleString('en-CA') }); });
+  $$('.bar i').forEach((b, i) => gsap.to(b, { scaleX: +b.dataset.w, duration: reduced ? 0 : 1.6, delay: .2 + i * .08, ease: 'expo.out' }));
+} });
+
+/* ======================================================
+   Take action: coverflow
+   ====================================================== */
+const FLOW = [
+  { k: 'thirst', eyebrow: 'Thirst Relief', h: 'A communal tap in Berbice means drinking, cooking, and washing without a day lost to fetching water.', p: 'From USD 150, or local equivalent in TTD, JMD, GYD, XCD, CAD.', cta: 'Support Thirst Relief', img: 'happen-thirst.jpg' },
+  { k: 'feed', eyebrow: 'Feed Our World', h: 'Food packs and shared kitchens in Couva keep families fed this week, and skills that last beyond it.', p: 'Give once, or set up AutoGive to keep the kitchen stocked.', cta: 'Support Feed Our World', img: 'work-feed.jpg' },
+  { k: 'orphan', eyebrow: 'OrphanKind', h: 'OrphanKind sponsorship covers fees, uniform, and a hot meal at midday.', p: 'School, meals, and care for one child at a time.', cta: 'Sponsor a child', img: 'work-schoolyard.jpg' },
+  { k: 'emergency', eyebrow: 'Emergency Response', h: 'When a storm or flood hits, food, water, and shelter move first.', p: 'Restricted Sadaqah, released fast.', cta: 'Give to Emergency Response', img: 'work-emergency.jpg' }
+];
+const flow = $('#flow');
+flow.innerHTML = FLOW.map((f, i) => `<article class="fcard" style="--c:${P[f.k].c};--cd:${P[f.k].cd}" data-i="${i}" aria-roledescription="slide" aria-label="${f.eyebrow}, ${i + 1} of ${FLOW.length}">
+  <div class="fcard__body"><span class="eyebrow">${f.eyebrow}</span><h3>${f.h}</h3><p>${f.p}</p><button class="btn" type="button" data-give="${f.k}">${f.cta} ${DOTS}</button></div>
+  <div class="fcard__img"><img src="${IMG + f.img}" alt="" loading="lazy"></div></article>`).join('');
+const fcards = $$('.fcard'); let fi = 0;
+function layoutFlow() {
+  const wide = innerWidth > 900, gap = wide ? .62 : .9;
+  fcards.forEach((c, i) => {
+    let d = i - fi; if (d > FLOW.length / 2) d -= FLOW.length; if (d < -FLOW.length / 2) d += FLOW.length;
+    const a = Math.abs(d);
+    c.style.transform = `translateX(${d * gap * 100}%) scale(${a ? .8 : 1}) rotateY(${-d * 4}deg)`;
+    c.style.opacity = a > 1 ? 0 : a ? .55 : 1;
+    c.style.filter = a ? 'saturate(.6)' : 'none';
+    c.style.zIndex = 10 - a; c.classList.toggle('is-active', !a);
+    c.setAttribute('aria-hidden', a ? 'true' : 'false');
+    $$('button', c).forEach(b => b.tabIndex = a ? -1 : 0);
+  });
+  $('#takeCount').textContent = `${FLOW[fi].eyebrow}, ${fi + 1} of ${FLOW.length}`;
+}
+function flowGo(n) { fi = (n + FLOW.length) % FLOW.length; layoutFlow(); }
+$('#tNext').addEventListener('click', () => flowGo(fi + 1));
+$('#tPrev').addEventListener('click', () => flowGo(fi - 1));
+fcards.forEach(c => c.addEventListener('click', e => { if (!c.classList.contains('is-active')) { e.preventDefault(); e.stopPropagation(); flowGo(+c.dataset.i); } }, true));
+(() => { let sx = null; flow.addEventListener('pointerdown', e => { sx = e.clientX; }); flow.addEventListener('pointerup', e => { if (sx === null) return; const dx = e.clientX - sx; if (Math.abs(dx) > 60) flowGo(fi + (dx < 0 ? 1 : -1)); sx = null; }); })();
+$('#take').addEventListener('keydown', e => { if (e.key === 'ArrowRight') flowGo(fi + 1); if (e.key === 'ArrowLeft') flowGo(fi - 1); });
+layoutFlow();
+
+/* ======================================================
+   Zakat ring-fence draws around the restricted programmes
+   ====================================================== */
+function sizeFence() { const f = $('#fence'), r = $('#fenceRect'); r.setAttribute('width', f.clientWidth - 2); r.setAttribute('height', f.clientHeight - 2); }
+ScrollTrigger.create({ trigger: '#fence', start: 'top 75%', once: true, onEnter: () => {
+  const r = $('#fenceRect'), L = r.getTotalLength();
+  if (!reduced) { gsap.fromTo(r, { strokeDasharray: `0 ${L}` }, { strokeDasharray: `${L} 0`, duration: 1.6, ease: 'power2.inOut', onComplete: () => r.style.strokeDasharray = '' });
+    gsap.from('.fence .pill', { y: 30, opacity: 0, duration: .9, stagger: .12, ease: 'expo.out', delay: .4 });
+    gsap.from('.fence .lock', { scale: 0, rotate: -40, duration: .9, ease: 'back.out(2.5)', delay: 1.3 }); }
+} });
+
+/* important parts rise */
+if (!reduced) gsap.from('.part', { y: 50, opacity: 0, duration: 1, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.parts', start: 'top 85%' } });
+
+/* ======================================================
+   Footer wordmark reacts to the pointer
+   ====================================================== */
+const giant = $('#giant'); giant.innerHTML = [...'caribbean'].map(c => `<span>${c}</span>`).join('');
+const gl = $$('span', giant);
+if (!touch) $('.footer').addEventListener('pointermove', e => { gl.forEach(s => { const r = s.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), d = Math.hypot(dx, dy), k = clamp(1 - d / 260);
+  s.style.transform = `translateY(${-k * 22}px)`; s.classList.toggle('is-hot', k > .55); }); });
+
+/* ======================================================
+   Frame loop + boot
+   ====================================================== */
+let last = performance.now();
+function frame(now) {
+  requestAnimationFrame(frame);
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  const v = Math.abs(lenis.velocity || 0);
+  tickers.forEach(t => t.tick(dt, v * 6));
+  if (!routePaused && phraseLen) { routeX = (routeX - (60 + v * 40) * dt) % phraseLen; }
+  rt.setAttribute('startOffset', routeX - phraseLen);
+}
+function measureAll() { tickers.forEach(t => t.measure()); measureRoute(); sizeFence(); layoutFlow(); ScrollTrigger.refresh(); }
+Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(r => setTimeout(r, 2500))]).then(() => {
+  measureAll(); runProgress();
+  if (!reduced) {
+    gsap.from($$('.reveal-line>span', copy), { yPercent: 110, duration: 1.3, ease: 'expo.out', stagger: .1, delay: .15 });
+    gsap.from([$('.hero__eyebrow', copy), $('.hero__sub', copy), $('.hero__ctas', copy), '.hero__ctrl'], { y: 18, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: .08, delay: .4 });
+    gsap.from('#gift', { y: 40, opacity: 0, duration: 1.3, ease: 'expo.out', delay: .7 });
+    gsap.from('.header', { opacity: 0, duration: 1, ease: 'power2.out', delay: .2 });
+  }
+  requestAnimationFrame(frame);
+});
+addEventListener('load', () => { measureAll(); });
+let rw = innerWidth, rto; addEventListener('resize', () => { clearTimeout(rto); rto = setTimeout(() => { if (innerWidth !== rw) { rw = innerWidth; measureAll(); } else { sizeFence(); } }, 150); });
+document.addEventListener('visibilitychange', () => { if (!progTween) return; document.hidden ? progTween.pause() : progTween.resume(); });
+})();
+</script>
+</body>
+</html>
