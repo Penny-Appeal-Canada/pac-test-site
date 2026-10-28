@@ -342,8 +342,15 @@ export const ASNAF = [
 export const ZAKAT_FAQ = [
   { q: "What is Zakat?", a: "Zakat is the third pillar of Islam: an obligatory charity of 2.5% of the wealth you have held for a lunar year, once it is above the nisab. The word means purification and growth." },
   { q: "Who has to pay it?", a: "Every adult Muslim of sound mind whose wealth stays at or above the nisab for one full lunar year (the hawl)." },
-  { q: "What is the nisab?", a: "The minimum wealth before Zakat is due. It is the value of 85 grams of gold or 595 grams of silver, so it changes with metal prices. The calculator uses today's rates." },
-  { q: "What counts towards it?", a: "Cash and savings, gold and silver, investments and shares, business stock, and money owed to you. Your home, car and personal belongings do not count." },
   { q: "What is Zakat al-Fitr?", a: "A separate, smaller Zakat paid for every member of the household before Eid al-Fitr, so that everyone can celebrate Eid. It is CAD 15 per person." },
   { q: "Can I pay my Zakat monthly?", a: "Yes. Zakat, Where Most Needed can be given monthly, so you can spread your Zakat across the year." },
 ];
+/** What counts towards Zakat, and what doesn't. */
+export const ZAKAT_COUNTS = [
+  { k: "cash", name: "Cash and savings", line: "Money in the bank, at home or in your wallet." },
+  { k: "metal", name: "Gold and silver", line: "Jewellery, coins and bars, at today's value." },
+  { k: "invest", name: "Investments and shares", line: "Stocks, funds, crypto and other investments." },
+  { k: "stock", name: "Business stock", line: "Goods you hold to sell, and your business's cash." },
+  { k: "owed", name: "Money owed to you", line: "Loans you expect to be paid back." },
+];
+export const ZAKAT_EXEMPT = ["Your home", "Your car", "Personal belongings"];

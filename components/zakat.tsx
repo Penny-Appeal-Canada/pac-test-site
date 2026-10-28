@@ -1,22 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ASNAF, FITR, ZAKAT_FAQ, ZAKAT_MEDIA, ZAKAT_OPTIONS } from "@/lib/content";
+import type { CSSProperties, ReactNode } from "react";
+import { ASNAF, FITR, ZAKAT_COUNTS, ZAKAT_EXEMPT, ZAKAT_FAQ, ZAKAT_MEDIA, ZAKAT_OPTIONS } from "@/lib/content";
 import { Dots, GiftProvider, GiveButton } from "@/components/gift";
 import { Footer, Header } from "@/components/sections";
 import { Arrow, Lines, PhotoCards, ProgrammeGift, cad } from "@/components/programme";
 import { initZakatEffects } from "@/lib/zakat-effects";
 
 /* Zakat programme page. Concept: "one in forty".
-   Through-line: the coin and the eight-point star. Zakat is 2.5%, CAD 1 of every CAD 40:
-   forty coins fill as the hero scrolls and the last one turns gold. The star returns
-   to show the eight who may receive Zakat. The AI calculator from Zakah.com embeds in
-   #calculate; until then it shows a screenshot. Motion lives in lib/zakat-effects.ts. */
+   Through-line: the gold eight-point star. It draws itself behind the hero's arch
+   on load, then returns to show the eight who may receive Zakat. Below the hero,
+   sections teach the rest: what counts, and the nisab (one gold bar against seven
+   silver), then a break rewards the reader: one seed growing seven spikes (Qur'an 2:261)
+   and what their Zakat becomes. The AI calculator from Zakah.com embeds in #calculate;
+   until then it shows a screenshot. Motion lives in lib/zakat-effects.ts. */
 /* eslint-disable @next/next/no-img-element */
 
-const COINS = Array.from({ length: 40 }, (_, i) => i);
+/** Two squares, one turned 45°: the eight-point star. */
+function Star({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 200 200" aria-hidden="true">
+      <rect x="42" y="42" width="116" height="116" pathLength={1} />
+      <rect x="42" y="42" width="116" height="116" pathLength={1} transform="rotate(45 100 100)" />
+    </svg>
+  );
+}
 
-/* ---------------- hero: forty coins, one of them Zakat ---------------- */
+/* ---------------- hero: the arch, the star and 2.5% ---------------- */
 function Hero() {
   return (
     <section className="zk-hero" id="top" aria-labelledby="zkTitle">
@@ -27,24 +38,18 @@ function Hero() {
             <span className="reveal-line"><span>Zakat, kept</span></span>{" "}
             <span className="reveal-line"><span>as an <span className="box">Amanah</span></span></span>
           </h1>
-          <div className="zk-forty">
-            <div className="zk-coins" id="zkCoins" aria-hidden="true">
-              {COINS.map((i) => <i key={i} className={i === 0 ? "is-on" : ""} />)}
-            </div>
-            <p className="zk-forty__read" aria-live="polite">
-              <span className="zk-forty__a">Of every <b>CAD 40</b> you hold&hellip;</span>
-              <span className="zk-forty__b"><b>CAD 1</b> is Zakat. That&apos;s 2.5%.</span>
-            </p>
-          </div>
           <p className="zk-hero__sub">Your Zakat is a sacred trust. We use every contribution according to Islamic jurisprudence, to reach the people who need it most.</p>
           <div className="hero__ctas">
             <a className="btn" href="#calculate">Calculate my Zakat <Dots /></a>
             <a className="btn btn--ghost" href="#ways">Ways to pay <Dots /></a>
           </div>
         </div>
-        <figure className="zk-arch" aria-hidden="true"><img src={ZAKAT_MEDIA.hero} alt="" fetchPriority="high" /></figure>
+        <div className="zk-hero__art" aria-hidden="true">
+          <div className="zk-hero__star"><Star /></div>
+          <figure className="zk-arch"><img src={ZAKAT_MEDIA.hero} alt="" fetchPriority="high" /></figure>
+          <div className="zk-badge"><b><span id="zkPct">2.5</span>%</b><span>of your wealth, once a lunar year</span></div>
+        </div>
         <div className="gift-dock tgift-dock"><ProgrammeGift title="Pay your Zakat" options={ZAKAT_OPTIONS} /></div>
-        <div className="th-cue zk-cue" aria-hidden="true"><i /><span>Scroll</span></div>
       </div>
     </section>
   );
@@ -144,6 +149,136 @@ function Asnaf() {
   );
 }
 
+/* ---------------- what counts: coin stacks build as each asset passes ---------------- */
+const COUNT_ART: Record<string, ReactNode> = {
+  cash: <><rect x="6" y="16" width="52" height="32" rx="4" /><circle className="w" cx="32" cy="32" r="8" /><path d="M14 24v16M50 24v16" /></>,
+  metal: <><path d="M10 46l8-18h28l8 18z" /><path className="w" d="M20 28l5-12h14l5 12z" /></>,
+  invest: <><path d="M8 54h48" /><path className="w" d="M12 44l12-12 10 8 18-20" /><path d="M42 20h10v10" /></>,
+  stock: <><path d="M8 26 32 14l24 12v26H8z" /><path className="w" d="M24 52V36h16v16" /></>,
+  owed: <><path d="M10 40l12-10 10 4 10-8 12 6" /><path className="w" d="M22 50a10 10 0 1 0 0-.1M42 22a8 8 0 1 0 0-.1" /></>,
+};
+function Counts() {
+  return (
+    <section className="counts" id="counts" data-on="-1" aria-labelledby="countsTitle">
+      <div className="container counts__grid">
+        <div className="counts__list">
+          <Lines id="countsTitle" lines={["What counts", <>towards <em>your Zakat</em></>]} />
+          <p className="lead">Zakat is due on wealth that can grow. Add up everything below that you have held for a lunar year.</p>
+          <ol>
+            {ZAKAT_COUNTS.map((c, i) => (
+              <li key={c.k} className="counts__row" data-k={i}>
+                <svg className="counts__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{COUNT_ART[c.k]}</svg>
+                <div><h3>{c.name}</h3><p>{c.line}</p></div>
+              </li>
+            ))}
+            <li className="counts__row counts__row--no" data-k={ZAKAT_COUNTS.length}>
+              <svg className="counts__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><circle cx="32" cy="32" r="22" /><path d="M16 48 48 16" /></svg>
+              <div><h3>Not counted</h3><p>Your home, your car, your personal belongings, and anything else you use rather than hold as wealth.</p></div>
+            </li>
+          </ol>
+        </div>
+        <div className="counts__aside" aria-hidden="true">
+          <div className="counts__board">
+            <div className="counts__stacks">
+              {ZAKAT_COUNTS.map((c, i) => (
+                <div key={c.k} className="counts__col" data-k={i}>
+                  <div className="counts__coins">{Array.from({ length: 4 + (i % 3) }, (_, j) => <i key={j} style={{ "--j": j } as CSSProperties} />)}</div>
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">{COUNT_ART[c.k]}</svg>
+                </div>
+              ))}
+            </div>
+            <div className="counts__total"><span>Total wealth</span><b>&times; 2.5%</b><span>= your Zakat</span></div>
+            <ul className="counts__no">{ZAKAT_EXEMPT.map((x) => <li key={x}>{x}</li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- the nisab: one gold bar against seven silver ---------------- */
+const Bar = ({ i }: { i: number }) => <i className="bar" style={{ "--i": i } as CSSProperties} />;
+function Nisab() {
+  return (
+    <section className="nisab" id="nisab" aria-labelledby="nisabTitle">
+      <div className="container">
+        <div className="nisab__head">
+          <Lines id="nisabTitle" lines={["The nisab:", <>where Zakat <em>begins</em></>]} />
+          <p className="lead">Zakat is only due once your wealth reaches a minimum, set by the value of gold or silver. The prices move every day, so the calculator always uses today&apos;s rate.</p>
+        </div>
+        <div className="nisab__grid">
+          <figure className="metal metal--gold">
+            <div className="metal__bars"><Bar i={0} /></div>
+            <figcaption><b><span data-count="85">85</span>g</b><span>of gold</span></figcaption>
+          </figure>
+          <div className="nisab__or" aria-hidden="true">or</div>
+          <figure className="metal metal--silver">
+            <div className="metal__bars">{Array.from({ length: 7 }, (_, i) => <Bar key={i} i={i} />)}</div>
+            <figcaption><b><span data-count="595">595</span>g</b><span>of silver: seven times the weight</span></figcaption>
+          </figure>
+        </div>
+        <p className="nisab__note"><b>Which one?</b> Silver is worth far less, so its nisab is lower and more people reach it. Many scholars recommend the silver nisab for that reason.</p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- the break: one seed, seven spikes, and what your Zakat becomes ---------------- */
+// seven stalks fan out of one seed; each carries an ear of grains along its last stretch
+const STALKS = Array.from({ length: 7 }, (_, i) => {
+  const a = ((i - 3) * 13 * Math.PI) / 180, L = 230 - Math.abs(i - 3) * 14;
+  const bx = 300, by = 330, tx = bx + Math.sin(a) * L, ty = by - Math.cos(a) * L;
+  const d = `M${bx} ${by}Q${bx + Math.sin(a) * L * 0.3} ${by - L * 0.55} ${tx} ${ty}`;
+  const grains = Array.from({ length: 9 }, (_, g) => {
+    const t = 0.62 + g * 0.045, side = g % 2 ? 1 : -1;
+    return { x: bx + Math.sin(a) * L * t + Math.cos(a) * 7 * side, y: by - Math.cos(a) * L * t + Math.sin(a) * 7 * side, r: (a * 180) / Math.PI + side * 28 };
+  });
+  return { d, grains, i };
+});
+const BECOMES = [
+  { amt: FITR, what: "An Eid meal for one person", note: "Zakat al-Fitr, 1 person" },
+  { amt: 120, what: "Food for a family in Gaza", note: "Gaza Emergency Response, Feed 1 family" },
+  { amt: 500, what: "Medical aid for two families in Gaza", note: "Gaza Emergency Response, Medical aid for 2 families" },
+  { amt: 1000, what: "Shelter for a family of four in Gaza", note: "Gaza Emergency Response, Shelter for a family of 4" },
+];
+function Reward() {
+  return (
+    <section className="reward" id="reward" aria-labelledby="rewardTitle">
+      <div className="container reward__in">
+        <svg className="reward__wheat" viewBox="0 60 600 300" aria-hidden="true">
+          {STALKS.map((st) => (
+            <g key={st.i} className="stalk" style={{ "--i": st.i } as CSSProperties}>
+              <path pathLength={1} d={st.d} />
+              {st.grains.map((g, k) => <g key={k} transform={`rotate(${g.r} ${g.x} ${g.y})`}><ellipse cx={g.x} cy={g.y} rx="4.2" ry="9" style={{ "--k": k } as CSSProperties} /></g>)}
+            </g>
+          ))}
+          <ellipse className="reward__seed" cx="300" cy="334" rx="9" ry="6" />
+        </svg>
+        <blockquote className="reward__verse">
+          <p id="rewardTitle">&ldquo;The example of those who spend their wealth in the way of Allah is like a seed of grain which grows <em>seven spikes</em>; in each spike is <em>a hundred grains</em>. And Allah multiplies for whom He wills.&rdquo;</p>
+          <cite>Qur&apos;an 2:261</cite>
+        </blockquote>
+        <h3 className="reward__h">What your Zakat becomes</h3>
+        <ul className="reward__tiles">
+          {BECOMES.map((b) => (
+            <li key={b.amt}>
+              <GiveButton give="zakat" amt={b.amt} freq="once" note={b.note} className="tile" aria-label={`Pay ${cad(b.amt)} Zakat: ${b.what}`}>
+                <b><small>CAD</small>{b.amt.toLocaleString("en-CA")}</b>
+                <span>{b.what}</span>
+                <i aria-hidden="true">Pay this <Arrow /></i>
+              </GiveButton>
+            </li>
+          ))}
+        </ul>
+        <div className="reward__ctas">
+          <GiveButton give="zakat" note="Zakat, Where Most Needed" className="btn">Pay my Zakat <Dots /></GiveButton>
+          <a className="btn btn--ghost" href="#calculate">Calculate it first <Dots /></a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- the basics ---------------- */
 function Faq() {
   return (
@@ -196,6 +331,9 @@ export default function ZakatSite() {
         <Calculator />
         <Ways />
         <Asnaf />
+        <Counts />
+        <Nisab />
+        <Reward />
         <Faq />
         <Closing />
       </main>
