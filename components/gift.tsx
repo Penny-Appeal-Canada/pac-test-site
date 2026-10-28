@@ -9,14 +9,17 @@ import { CURRENCIES, GIFT_PROGRAMMES, PRESETS, type Currency, type GiftProg } fr
    Any <GiveButton> anywhere on the page opens it preset to its programme. */
 
 type Freq = "once" | "monthly";
+/** A specific appeal to preset, e.g. one well at its CAD price. */
+export type GiftOpts = { amt?: number; cur?: Currency; note?: string; freq?: Freq };
 type GiftState = {
   prog: GiftProg; setProg: (p: GiftProg) => void;
   cur: Currency; setCur: (c: Currency) => void;
   freq: Freq; setFreq: (f: Freq) => void;
   amt: number; setAmt: (a: number) => void;
   custom: string; setCustom: (s: string) => void;
+  note: string;
   drawerOpen: boolean;
-  openGift: (preset?: string) => void;
+  openGift: (preset?: string, opts?: GiftOpts) => void;
   closeGift: () => void;
   notify: (msg: string) => void;
   dockRef: React.RefObject<HTMLDivElement | null>;
@@ -38,6 +41,7 @@ export function GiftProvider({ children }: { children: ReactNode }) {
   const [freq, setFreq] = useState<Freq>("once");
   const [amt, setAmt] = useState(PRESETS.CAD[0]);
   const [custom, setCustom] = useState("");
+  const [note, setNote] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [toast, setToast] = useState("");
   const dockRef = useRef<HTMLDivElement | null>(null);
@@ -45,6 +49,7 @@ export function GiftProvider({ children }: { children: ReactNode }) {
   const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const setCur = useCallback((c: Currency) => { setCurState(c); setCustom(""); setAmt(PRESETS[c][0]); }, []);
+  const setProgClear = useCallback((p: GiftProg) => { setProg(p); setNote(""); }, []);
 
   const notify = useCallback((msg: string) => {
     setToast(msg);
@@ -52,9 +57,12 @@ export function GiftProvider({ children }: { children: ReactNode }) {
     toastTimer.current = setTimeout(() => setToast(""), 4200);
   }, []);
 
-  const openGift = useCallback((preset?: string) => {
+  const openGift = useCallback((preset?: string, opts: GiftOpts = {}) => {
     if (preset === "monthly") setFreq("monthly");
     else if (preset && GIFT_PROGRAMMES.some((p) => p.v === preset)) setProg(preset as GiftProg);
+    setNote(opts.note ?? "");
+    if (opts.amt) { setFreq(opts.freq ?? "once"); setCurState(opts.cur ?? "CAD"); setCustom(String(opts.amt)); }
+    else if (opts.freq) setFreq(opts.freq);
 
     // In the hero on desktop the form is already on screen: just draw attention to it.
     const dock = dockRef.current;
@@ -76,8 +84,8 @@ export function GiftProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<GiftState>(
-    () => ({ prog, setProg, cur, setCur, freq, setFreq, amt, setAmt, custom, setCustom, drawerOpen, openGift, closeGift, notify, dockRef }),
-    [prog, cur, setCur, freq, amt, custom, drawerOpen, openGift, closeGift, notify]
+    () => ({ prog, setProg: setProgClear, cur, setCur, freq, setFreq, amt, setAmt, custom, setCustom, note, drawerOpen, openGift, closeGift, notify, dockRef }),
+    [prog, setProgClear, cur, setCur, freq, amt, custom, note, drawerOpen, openGift, closeGift, notify]
   );
 
   return (
@@ -93,10 +101,10 @@ export function Dots() {
   return (<><i className="d" /><i className="d" /><i className="d" /></>);
 }
 
-export function GiveButton({ give, className = "btn", children, ...rest }: { give?: string; className?: string; children?: ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function GiveButton({ give, amt, note, freq, className = "btn", children, ...rest }: { give?: string; className?: string; children?: ReactNode } & Omit<GiftOpts, "cur"> & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const { openGift } = useGift();
   return (
-    <button type="button" className={className} onClick={() => openGift(give)} {...rest}>
+    <button type="button" className={className} onClick={() => openGift(give, { amt, note, freq })} {...rest}>
       {children}
     </button>
   );
@@ -108,15 +116,16 @@ export function GiftForm({ inDrawer = false }: { inDrawer?: boolean }) {
   const [shake, setShake] = useState(false);
   const customRef = useRef<HTMLInputElement>(null);
   const value = g.custom ? parseFloat(g.custom.replace(/,/g, "")) : g.amt;
+  const target = g.note || progLabel(g.prog);
   const summary = value > 0
-    ? <><strong>{fmt(g.cur, value)}</strong> {g.freq === "monthly" ? "every month" : "once"} to {progLabel(g.prog)}</>
+    ? <><strong>{fmt(g.cur, value)}</strong> {g.freq === "monthly" ? "every month" : "once"} to {target}</>
     : "Enter an amount to continue";
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!(value > 0)) { setShake(true); customRef.current?.focus(); return; }
     // Payment provider checkout plugs in here.
-    g.notify(`Ready: ${fmt(g.cur, value)} ${g.freq === "monthly" ? "monthly" : "one-time"} to ${progLabel(g.prog)}. Checkout connects here in production.`);
+    g.notify(`Ready: ${fmt(g.cur, value)} ${g.freq === "monthly" ? "monthly" : "one-time"} to ${target}. Checkout connects here in production.`);
   }
 
   return (

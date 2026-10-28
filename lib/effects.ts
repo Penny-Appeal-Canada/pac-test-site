@@ -1,11 +1,11 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
+import { $, $$, initChrome } from "@/lib/chrome";
 import { MARQUEE_PHRASE, SLIDES } from "@/lib/content";
 
-/* Imperative motion for the page: smooth scroll, hero carousel, reveals, tickers,
-   curved marquee, counters and small interactions. React owns the markup and the
-   stateful widgets (gift form, impact filter, coverflow); this only animates it.
+/* Imperative motion for the home page: hero carousel, reveals, tickers,
+   curved marquee and counters; the shared pieces live in lib/chrome.ts.
+   React owns the markup and the stateful widgets (gift form, impact filter, coverflow); this only animates it.
 
    Returns a cleanup that undoes everything, so React Strict Mode's double effect
    run in development is safe.
@@ -17,73 +17,13 @@ import { MARQUEE_PHRASE, SLIDES } from "@/lib/content";
 type Ticker = { measure: () => void; tick: (dt: number, boost: number) => void };
 
 export function initEffects(): () => void {
-  gsap.registerPlugin(ScrollTrigger);
-  const ac = new AbortController();
-  const on = <K extends keyof WindowEventMap>(t: EventTarget, type: K | string, fn: (e: never) => void, opts: AddEventListenerOptions = {}) =>
-    t.addEventListener(type, fn as EventListener, { ...opts, signal: ac.signal });
+  const chrome = initChrome();
+  const { lenis, reduced, on } = chrome;
   const timers: ReturnType<typeof setTimeout>[] = [];
   const later = (fn: () => void, ms: number) => timers.push(setTimeout(fn, ms));
 
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const touch = matchMedia("(hover: none)").matches;
-  const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T;
-  const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => [...r.querySelectorAll(s)] as T[];
-  const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-
-  /* ---------- smooth scroll ---------- */
-  const lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: !reduced });
-  lenis.on("scroll", ScrollTrigger.update);
-  const lenisRaf = (t: number) => lenis.raf(t * 1000);
-  gsap.ticker.add(lenisRaf);
-  gsap.ticker.lagSmoothing(0);
-
   const ctx = gsap.context(() => {});
   const add = (fn: () => void) => ctx.add(fn);
-
-  /* ---------- menu ---------- */
-  const menuBtn = $("#menuBtn");
-  const closeMenu = () => {
-    if (!document.body.classList.contains("menu-open")) return; // only undo what opening the menu did
-    document.body.classList.remove("menu-open"); menuBtn.setAttribute("aria-expanded", "false"); lenis.start();
-  };
-  on(menuBtn, "click", () => {
-    const open = !document.body.classList.contains("menu-open");
-    document.body.classList.toggle("menu-open", open);
-    menuBtn.setAttribute("aria-expanded", String(open));
-    if (open) lenis.stop(); else lenis.start();
-  });
-
-  /* in-page anchors scroll with Lenis */
-  on(document, "click", (e: MouseEvent) => {
-    const a = (e.target as Element).closest?.('a[href^="#"]');
-    if (!a) return;
-    const id = a.getAttribute("href") || "";
-    if (id.length < 2) return;
-    const t = document.querySelector(id);
-    if (!t) return;
-    e.preventDefault(); closeMenu();
-    lenis.scrollTo(t as HTMLElement, { offset: id === "#top" ? 0 : -70, duration: 1.4 });
-  });
-
-  /* ---------- header: solid after hero, hides on scroll down ---------- */
-  const header = $("#header"), mbar = $("#mbar");
-  let lastY = 0;
-  lenis.on("scroll", ({ scroll }: { scroll: number }) => {
-    header.classList.toggle("is-solid", scroll > innerHeight * 0.75);
-    if (scroll > innerHeight && scroll > lastY + 2 && !document.body.classList.contains("menu-open")) header.classList.add("is-hidden");
-    if (scroll < lastY - 2 || scroll <= innerHeight) header.classList.remove("is-hidden");
-    lastY = scroll;
-    mbar.classList.toggle("is-on", scroll > innerHeight * 0.6);
-  });
-
-  /* ---------- buttons: glow follows the pointer ---------- */
-  on(document, "pointermove", (e: PointerEvent) => {
-    const b = (e.target as Element).closest?.(".btn") as HTMLElement | null;
-    if (!b) return;
-    const r = b.getBoundingClientRect();
-    b.style.setProperty("--gx", `${e.clientX - r.left}px`);
-    b.style.setProperty("--gy", `${e.clientY - r.top}px`);
-  });
 
   /* ======================================================
      HERO carousel: wipe + Ken Burns + line reveal + autoplay progress
@@ -155,30 +95,16 @@ export function initEffects(): () => void {
     sx = null;
   });
 
-  /* gift drawer open/close (dispatched by components/gift.tsx) */
-  on(window, "pa:lock", () => { closeMenu(); lenis.stop(); progTween?.pause(); });
-  on(window, "pa:unlock", () => { lenis.start(); progTween?.resume(); });
-  on(window, "keydown", (e: KeyboardEvent) => { if (e.key === "Escape" && document.body.classList.contains("menu-open")) closeMenu(); });
+  /* gift drawer open/close (lib/chrome.ts handles scroll) */
+  on(window, "pa:lock", () => progTween?.pause());
+  on(window, "pa:unlock", () => progTween?.resume());
   on(document, "visibilitychange", () => { if (document.hidden) progTween?.pause(); else progTween?.resume(); });
 
   /* ======================================================
      Scroll reveals
      ====================================================== */
+  chrome.reveal();
   add(() => {
-    if (!reduced) {
-      $$("[data-lines]").forEach((h) => {
-        gsap.from($$(".reveal-line>span", h), { yPercent: 110, duration: 1.2, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: h, start: "top 85%" } });
-      });
-    }
-    $$("[data-words]").forEach((p) => {
-      const ws = $$(".w", p);
-      if (reduced) { ws.forEach((w) => (w.style.opacity = "1")); return; }
-      ScrollTrigger.create({
-        trigger: p, start: "top 80%", end: "bottom 45%", scrub: true,
-        onUpdate: (s) => { const n = s.progress * ws.length; ws.forEach((w, i) => (w.style.opacity = String(clamp(0.16 + (n - i) * 0.84, 0.16, 1)))); },
-      });
-    });
-
     /* polaroid stack straightens as it passes */
     $$("#stack figure").forEach((f) => {
       const r = Number(f.dataset.r), s = Number(f.dataset.s);
@@ -271,18 +197,6 @@ export function initEffects(): () => void {
       : '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
   });
 
-  /* ======================================================
-     Footer wordmark reacts to the pointer
-     ====================================================== */
-  const letters = $$("#giant span");
-  if (!touch) on($(".footer"), "pointermove", (e: PointerEvent) => {
-    letters.forEach((s) => {
-      const r = s.getBoundingClientRect(), d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2)), k = clamp(1 - d / 260);
-      s.style.transform = `translateY(${-k * 22}px)`;
-      s.classList.toggle("is-hot", k > 0.55);
-    });
-  });
-
   /* ---------- fence size ---------- */
   function sizeFence() {
     const f = $("#fence"), r = $("#fenceRect");
@@ -307,7 +221,7 @@ export function initEffects(): () => void {
 
   let booted = false;
   const boot = () => {
-    if (booted || ac.signal.aborted) return;
+    if (booted || chrome.signal.aborted) return;
     booted = true;
     measureAll();
     runProgress();
@@ -329,16 +243,11 @@ export function initEffects(): () => void {
   });
 
   return () => {
-    ac.abort();
     timers.forEach(clearTimeout);
     clearTimeout(rto);
     cancelAnimationFrame(raf);
     progTween?.kill();
     ctx.revert();
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-    gsap.killTweensOf("*");
-    gsap.ticker.remove(lenisRaf);
-    lenis.destroy();
-    document.body.classList.remove("menu-open");
+    chrome.destroy();
   };
 }

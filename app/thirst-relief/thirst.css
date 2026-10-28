@@ -1,0 +1,157 @@
+/* Thirst Relief programme page · concept: "the walk for water, ended".
+   Builds on the tokens and components in globals.css. */
+.th{--deep:#062a33;--foam:#bfefff;--acc:var(--thirst);--acc-deep:var(--thirst-deep);--acc-soft:#e6f6fb}
+
+/* ---------- hero: the water rises over the walk ---------- */
+.th-hero{position:relative;height:260vh;background:var(--ink)}
+.th-hero__stage{position:sticky;top:0;height:100vh;height:100svh;min-height:600px;overflow:hidden;color:#fff;isolation:isolate}
+.th-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.th-hero__after{position:absolute;inset:0;z-index:1;clip-path:inset(100% 0 0 0)}
+.th-hero__after::after{content:"";position:absolute;left:0;right:0;top:calc(var(--y,100%) - 20px);height:220px;background:linear-gradient(180deg,rgba(0,165,206,.55),rgba(0,165,206,0))}
+.waterline{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
+.waterline path{fill:none;stroke:#eafcff;stroke-width:2.5;filter:drop-shadow(0 0 10px rgba(0,165,206,.95))}
+.th-hero__shade{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(90deg,rgba(20,16,17,.7) 0%,rgba(20,16,17,.3) 45%,rgba(20,16,17,0) 70%),linear-gradient(0deg,rgba(20,16,17,.6) 0%,rgba(20,16,17,0) 45%),linear-gradient(180deg,rgba(20,16,17,.45),rgba(20,16,17,0) 22%)}
+.th-tag{position:absolute;z-index:4;right:calc(var(--gr) + var(--pad) - 18px);font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 13px;border-radius:999px;white-space:nowrap;pointer-events:none}
+.th-tag--before{top:calc(var(--y,100%) - 50px);opacity:var(--ta,1);background:rgba(20,16,17,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.th-tag--after{top:calc(var(--y,100%) + 16px);opacity:var(--tb,0);background:var(--thirst);color:var(--deep)}
+.th-hero__copy{position:absolute;z-index:5;left:calc(var(--gl) + var(--pad) - 18px);bottom:clamp(100px,15vh,150px);max-width:min(720px,52vw)}
+.th-hero__eyebrow{margin-bottom:16px}
+.th-hero h1{margin:0 0 22px;font-size:clamp(46px,min(5vw,10.5vh),96px);font-weight:800;line-height:.92;letter-spacing:-.035em;text-transform:uppercase}
+.th .box{display:inline-block;background:var(--thirst);color:var(--ink);padding:.02em .14em .06em;margin-left:-.04em;line-height:1}
+.th .box--ink{background:#fff}
+.th-swap{display:block;height:1.12em;overflow:hidden}
+.th-swap>span{display:block;height:1.12em;transition:transform .9s var(--ease)}
+.th-hero.is-after .th-swap>span{transform:translateY(-100%)}
+.th-sub{position:relative;max-width:36ch;margin:0 0 28px}
+.th-sub p{margin:0;font-size:clamp(17px,1.4vw,21px);line-height:1.4;color:rgba(255,255,255,.9);transition:opacity .6s,translate .8s var(--ease)}
+.th-sub__b{position:absolute;left:0;right:0;top:0;opacity:0;translate:0 14px}
+.th-hero.is-after .th-sub__a{opacity:0;translate:0 -14px}
+.th-hero.is-after .th-sub__b{opacity:1;translate:0 0}
+.th-hero.is-after .th-cue{opacity:0}
+.th-hero :focus-visible{outline-color:var(--thirst)}
+
+/* ---------- wells: sticky stage + gauge (the deep-water room) ---------- */
+.wells{background:var(--deep);color:#fff;padding:clamp(90px,14vh,150px) 0 clamp(60px,10vh,110px)}
+.wells__head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:40px;align-items:end;margin-bottom:clamp(40px,7vh,80px)}
+.wells .h2{font-size:clamp(40px,min(5.2vw,10vh),90px);line-height:.95;letter-spacing:-.04em}
+.wells .lead{color:rgba(255,255,255,.7);margin:0}
+.wells__grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(30px,5vw,90px)}
+.wstage{position:sticky;top:clamp(84px,12vh,110px);align-self:start;height:calc(100svh - clamp(84px,12vh,110px) - 40px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px}
+.wstage__frame{position:relative;border-radius:22px;overflow:hidden;background:#0b3a46}
+.wstage__img{position:absolute;inset:0;margin:0;visibility:hidden}
+.wstage__img.is-on{visibility:visible}
+.wstage__img img{width:100%;height:100%;object-fit:cover}
+.wstage__img figcaption{position:absolute;left:16px;bottom:16px;background:rgba(6,42,51,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px;border-radius:999px}
+.wstage .waterline{z-index:9999}
+.gauge{display:flex;gap:14px}
+.gauge__tube{position:relative;width:14px;border-radius:14px;background:rgba(255,255,255,.1);overflow:hidden}
+.gauge__tube i{position:absolute;inset:0;border-radius:14px;background:linear-gradient(0deg,var(--thirst-deep),var(--thirst) 70%,var(--foam));transform:scaleY(var(--lvl,.25));transform-origin:bottom;transition:transform 1.3s var(--ease)}
+.gauge ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column-reverse;justify-content:space-around;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);white-space:nowrap}
+.gauge li{position:relative;transition:color .6s}
+.gauge li::before{content:"";position:absolute;left:-23px;top:50%;width:10px;height:2px;background:currentColor}
+.gauge li.is-on{color:#fff}
+.well{min-height:86vh;min-height:86svh;display:flex;flex-direction:column;justify-content:center;padding:40px 0;opacity:.28;transition:opacity .7s var(--ease)}
+.well.is-active{opacity:1}
+.well__scale{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--thirst)}
+.well h3{margin:10px 0 0;font-size:clamp(34px,3.3vw,56px);line-height:1;letter-spacing:-.035em}
+.well__price{margin:14px 0 22px;font-size:clamp(28px,2.4vw,40px);font-weight:300;letter-spacing:-.02em;color:var(--foam);font-variant-numeric:tabular-nums}
+.well__price small{font-size:.38em;font-weight:700;letter-spacing:.12em;margin-right:8px;vertical-align:.55em}
+.well__text{margin:0;max-width:46ch;font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.78)}
+.well__spec{display:grid;gap:12px;margin:26px 0 30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14)}
+.well__spec div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px}
+.well__spec dt{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);padding-top:3px}
+.well__spec dd{margin:0;font-size:15px;line-height:1.45}
+.well__ctas{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.well .link-arrow{color:var(--foam)}
+.wells :focus-visible{outline-color:var(--foam)}
+
+/* ---------- name a well: photo + live plaque ---------- */
+.name{background:var(--paper);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,5vw,90px);align-items:start;padding-top:clamp(90px,14vh,150px);padding-bottom:clamp(90px,14vh,150px)}
+.name__photo{position:sticky;top:110px;margin:0}
+.name__pic{position:relative}
+.name__pic img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:22px}
+.name__photo figcaption{margin-top:14px;font-size:14px;color:var(--ink-2);max-width:52ch}
+.hotspot{position:absolute;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--orange);border:3px solid #fff;box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.hotspot::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid #fff;animation:ring 1.8s var(--ease) infinite}
+.name .h2{font-size:clamp(40px,min(5vw,9vh),84px);letter-spacing:-.04em;line-height:.95;color:var(--ink)}
+.name .h2 em{color:var(--thirst-deep)}
+.name .lead{margin:20px 0 0}
+.plaque{max-width:420px;margin:30px 0 34px;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e3ecef;box-shadow:0 30px 60px -30px rgba(0,60,80,.45);rotate:-1.5deg}
+.plaque__top{padding:22px 24px 20px;text-transform:uppercase;color:#17404b}
+.plaque__top span{display:block;font-size:12.5px;font-weight:700;letter-spacing:.08em;color:#4d6c75}
+.plaque__top b{display:block;margin-top:6px;font-size:clamp(22px,2vw,30px);font-weight:800;line-height:1.08;letter-spacing:-.01em;overflow-wrap:anywhere}
+.plaque__band{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:var(--thirst);color:#fff;font-size:clamp(20px,1.9vw,26px);font-weight:800;text-transform:uppercase;letter-spacing:.01em}
+.plaque__band i{flex:none;width:40px;height:40px;border-radius:50%;background:#fff;color:var(--thirst);display:grid;place-items:center}
+.plaque__band svg{width:20px;height:20px}
+.plaque__foot{padding:9px 24px;background:var(--thirst-deep);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.name__form{max-width:480px}
+.name__row{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+.name__form .select select{border-color:#e6e1da}
+.input{width:100%;height:50px;border:1.5px solid #e6e1da;border-radius:12px;padding:0 14px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;transition:border-color .3s,box-shadow .3s}
+.input:focus{border-color:var(--orange);box-shadow:0 0 0 4px #fdf1e4;outline:none}
+.name__form .btn{width:100%;justify-content:center;padding:0 44px 0 24px;margin-top:6px}
+
+/* ---------- emergency water: full-bleed band ---------- */
+.truck{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#111;isolation:isolate}
+.truck__img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;z-index:-2}
+.truck::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(12,12,12,.88) 12%,rgba(12,12,12,.25) 62%,rgba(12,12,12,.4))}
+.truck__in{width:100%;padding-top:140px;padding-bottom:clamp(140px,18vh,190px)}
+.truck__big{margin:12px 0 28px;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .18em;font-size:clamp(68px,14.5vw,250px);font-weight:800;line-height:.8;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
+.truck__big span+span{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.03em;font-size:.62em;color:var(--foam)}
+.truck__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end;padding-top:26px;border-top:1px solid rgba(255,255,255,.25)}
+.truck__row p{margin:0;max-width:46ch;font-size:17px;line-height:1.55;color:rgba(255,255,255,.85)}
+.truck__pick{display:flex;gap:8px;margin-bottom:14px}
+.truck__pick button{height:42px;padding:0 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);font-weight:600;font-size:14.5px;transition:background .3s,color .3s,border-color .3s}
+.truck__pick button:hover{border-color:#fff}
+.truck__pick button[aria-pressed="true"]{background:#fff;color:var(--ink);border-color:#fff}
+.truck .btn:hover{box-shadow:0 14px 30px -14px rgba(0,0,0,.5)}
+.truck :focus-visible{outline-color:#fff}
+
+/* ---------- global fund: wave-edged closing band ---------- */
+.fund{position:relative;background:var(--thirst);color:#04212a;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(30px,5vw,80px);align-items:center;padding-top:clamp(60px,9vh,100px);padding-bottom:clamp(90px,13vh,140px)}
+.fund__edge{position:absolute;left:0;top:-89px;width:100%;height:90px;pointer-events:none}
+.fund__edge path{fill:var(--thirst)}
+.fund__h{font-size:clamp(38px,min(4.2vw,9vh),68px);letter-spacing:-.04em;line-height:.98}
+.fund__copy p{margin:22px 0 0;max-width:44ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:#06394a}
+.drops{display:flex;gap:12px;align-items:flex-end}
+.drop{--s:0;flex:none;width:calc(80px + var(--s) * 13px);aspect-ratio:1;border-radius:50%;background:#fff;color:#04212a;display:grid;place-content:center;text-align:center;font-weight:800;font-size:calc(19px + var(--s) * 2px);letter-spacing:-.02em;box-shadow:0 20px 40px -24px rgba(0,40,55,.7);transition:translate .5s var(--ease),box-shadow .5s var(--ease)}
+.drop small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;color:var(--thirst-deep)}
+.drop:hover{translate:0 -6px;box-shadow:0 26px 40px -22px rgba(0,40,55,.8)}
+.drop--other{width:80px;background:transparent;box-shadow:inset 0 0 0 2px #04212a;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.drop--other:hover{background:#04212a;color:#fff;box-shadow:inset 0 0 0 2px #04212a}
+.fund :focus-visible{outline-color:#04212a}
+
+@media (max-width:1100px){
+  .th-hero__copy{max-width:min(720px,88vw)}
+  .th-hero h1{font-size:clamp(46px,min(6.4vw,11.5vh),100px)}
+}
+@media (max-width:900px){
+  .th-hero__copy{left:20px;right:20px;max-width:none;bottom:96px}
+  .th-tag{right:20px;font-size:10.5px}
+  .wells__head{grid-template-columns:minmax(0,1fr);gap:18px}
+  .wells__grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .wstage{top:0;height:calc(40svh + 26px);z-index:2;gap:12px;padding:14px 0 12px;background:var(--deep)}
+  .wstage__frame{border-radius:16px}
+  .gauge ol{display:none}
+  .gauge__tube{width:10px}
+  .well{min-height:0;padding:40px 0 56px;opacity:.35}
+  .name{grid-template-columns:minmax(0,1fr)}
+  .name__photo{position:static}
+  .truck__row{grid-template-columns:minmax(0,1fr);gap:24px}
+  .fund{grid-template-columns:minmax(0,1fr)}
+  .fund__edge{height:60px;top:-59px}
+}
+@media (max-width:600px){
+  .th-hero{height:230vh}
+  .th-hero h1{font-size:clamp(40px,11.5vw,58px)}
+  .th-hero .hero__ctas{flex-direction:column;gap:10px}
+  .th-hero .hero__ctas .btn{flex:none;height:50px;justify-content:center;padding:0 40px 0 18px;font-size:12.5px}
+  .th-tag{display:none}
+  .well .btn,.truck .btn{width:100%;justify-content:center;padding:0 40px 0 20px;font-size:12px}
+  .truck__big{font-size:23vw}
+  .truck__pick button{flex:1}
+  .drops{flex-wrap:nowrap;gap:8px}
+  .drop{width:calc(56px + var(--s) * 6px);font-size:calc(15px + var(--s) * 1px)}
+  .drop small{font-size:8.5px;letter-spacing:.1em}
+  .drop--other{width:56px;font-size:10.5px;letter-spacing:.04em}
+}

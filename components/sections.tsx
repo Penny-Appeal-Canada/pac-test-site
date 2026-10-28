@@ -13,6 +13,8 @@ import { Dots, GiftForm, GiveButton, useGift } from "@/components/gift";
 /* eslint-disable @next/next/no-img-element */
 
 const vars = (o: Record<string, string | number>) => o as CSSProperties;
+/** Each programme's own page. */
+const PAGES: Record<ProgKey, string> = { thirst: "/thirst-relief", feed: "/feed-our-world", orphan: "/orphankind", emergency: "/emergency-response" };
 
 function Arrow({ size }: { size?: number }) {
   return (
@@ -36,17 +38,28 @@ function Lines({ lines, id, className = "h2" }: { lines: { text: ReactNode; cls?
 }
 
 /* ---------------- header + mobile nav ---------------- */
-export function Header() {
+/** `base` is "/" on inner pages, so section links lead back to the home page. */
+export function Header({ base = "" }: { base?: string }) {
   return (
     <>
       <header className="header" id="header">
-        <a className="logo" href="#top" aria-label="Penny Appeal Caribbean, home"><span>pennyappeal</span><span>caribbean</span></a>
-        <nav className="nav" aria-label="Main"><a href="#causes">Our Work</a><a href="#take">Emergency Response</a><a href="#about">About Us</a></nav>
+        <a className="logo" href={base || "#top"} aria-label="Penny Appeal Caribbean, home"><span>pennyappeal</span><span>caribbean</span></a>
+        <nav className="nav" aria-label="Main">
+          <div className="nav__drop">
+            <a href={`${base}#causes`} aria-haspopup="true">Our Work <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg></a>
+            <ul className="nav__menu" aria-label="Our programmes">
+              {PROG_KEYS.map((k) => <li key={k}><a href={PAGES[k]} style={vars({ "--c": PROGRAMMES[k].c })}><i />{PROGRAMMES[k].name}</a></li>)}
+            </ul>
+          </div>
+          <a href="/emergency-response">Emergency Response</a><a href="/zakat">Zakat</a><a href={`${base}#about`}>About Us</a>
+        </nav>
         <GiveButton className="btn btn--sm">Donate <Dots /></GiveButton>
         <button className="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu"><i /></button>
       </header>
       <nav className="mobile-nav" id="mobileNav" aria-label="Mobile">
-        <a href="#causes">Our Work</a><a href="#take">Emergency Response</a><a href="#about">About Us</a><a href="#zakat">Zakat</a>
+        {PROG_KEYS.map((k) => <a key={k} href={PAGES[k]}>{PROGRAMMES[k].name}</a>)}
+        <a href="/zakat">Zakat</a>
+        <a className="mobile-nav__sm" href={`${base}#about`}>About Us</a>
         <div style={{ marginTop: 24 }}><GiveButton>Donate <Dots /></GiveButton></div>
       </nav>
     </>
@@ -69,8 +82,8 @@ export function Hero() {
       <div className="hero__shade" />
       <div className="hero__copy" id="heroCopy" aria-live="polite">
         {SLIDES.map((s, i) => (
-          <div key={s.k} className={`copy${i ? "" : " is-current"}`}>
-            <div className="hero__eyebrow eyebrow"><i />{s.eyebrow}</div>
+          <div key={s.k} className={`copy copy--${s.k}${i ? "" : " is-current"}`}>
+            <div className="hero__eyebrow eyebrow">{s.eyebrow}</div>
             {/* only the visible slide carries the page's h1 */}
             {i === 0 ? (
               <h1><span className="reveal-line"><span>{s.a}</span></span> <span className="reveal-line"><span><span className="box">{s.b}</span></span></span></h1>
@@ -226,7 +239,7 @@ export function Impact() {
                 <small>{p.where}</small>
                 <h3>{p.name}</h3>
                 <p>{p.line}</p>
-                <a className="link-arrow" href="#take" style={{ color: p.cd }}>Programme details <Arrow /></a>
+                <a className="link-arrow" href={PAGES[k]} style={{ color: p.cd }}>Programme details <Arrow /></a>
               </div>
             </div>
           </div>
@@ -353,7 +366,7 @@ export function Zakat() {
         </span>
         <span className="pill"><i style={{ background: "var(--thirst)" }} />Thirst Relief</span>
         <span className="pill"><i style={{ background: "var(--feed)" }} />Feed Our World</span>
-        <span className="pill"><i style={{ background: "var(--orphan)" }} />OrphanKind</span>
+        <span className="pill"><i style={{ background: "#fff" }} />OrphanKind</span>
         <span className="fence__note">ZAKAT ONLY</span>
       </div>
     </section>
@@ -385,20 +398,20 @@ export function Footer() {
     <>
       <footer className="footer container">
         <div className="footer__cta">
-          <h2>Support the <span className="accent" style={{ color: "var(--orange)" }}>work</span></h2>
+          <h2>Support the <span className="accent">work</span></h2>
           <GiveButton>Donate <Dots /></GiveButton>
         </div>
         <div className="fcols">
           <div><h3>Penny Appeal Caribbean</h3><p>Contact: [PLACEHOLDER]<br />Charity number: [PLACEHOLDER]</p></div>
-          <div><h3>Programmes</h3><ul><li><a href="#causes">Thirst Relief</a></li><li><a href="#causes">Feed Our World</a></li><li><a href="#causes">OrphanKind</a></li><li><a href="#take">Emergency Response</a></li></ul></div>
-          <div><h3>Get involved</h3><ul><li><a href="#zakat">Zakat</a></li><li><GiveButton give="monthly" className="">Give monthly</GiveButton></li><li><a href="#">Volunteer</a></li><li><a href="#">News</a></li></ul></div>
+          <div><h3>Programmes</h3><ul><li><a href="/thirst-relief">Thirst Relief</a></li><li><a href="/feed-our-world">Feed Our World</a></li><li><a href="/orphankind">OrphanKind</a></li><li><a href="/emergency-response">Emergency Response</a></li></ul></div>
+          <div><h3>Get involved</h3><ul><li><a href="/zakat">Zakat</a></li><li><GiveButton give="monthly" className="">Give monthly</GiveButton></li><li><a href="#">Volunteer</a></li><li><a href="#">News</a></li></ul></div>
           <div><h3>Legal</h3><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul><p style={{ marginTop: 14, fontSize: 13 }}>Currencies we accept include TTD, JMD, GYD, XCD, USD, and CAD.</p></div>
         </div>
         <div className="giant" id="giant" aria-hidden="true">{[..."caribbean"].map((c, i) => <span key={i}>{c}</span>)}</div>
         <div className="footer__legal"><span>© 2026 Penny Appeal Caribbean</span><span>Give with care. Reach families. Stand with communities.</span></div>
       </footer>
       <div className="mbar" id="mbar">
-        <a className="btn btn--ghost" href="#zakat">Zakat</a>
+        <a className="btn btn--ghost" href="/zakat">Zakat</a>
         <GiveButton>Donate <Dots /></GiveButton>
       </div>
     </>
